@@ -71,7 +71,7 @@ export default function AccountPage() {
 
   return (
     <div className="container max-w-5xl mx-auto py-12 px-4">
-      <h1 className="text-3xl font-bold mb-8">My Account</h1>
+      <h1 className="text-3xl font-bold mb-8">Личный кабинет</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Left Column - Profile Summary */}
@@ -107,7 +107,7 @@ export default function AccountPage() {
             </CardContent>
             <CardFooter>
               <Button variant="outline" size="sm" className="w-full" asChild>
-                <Link href="/api/auth/signout">Sign Out</Link>
+                <Link href="/api/auth/signout">Выйти</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -117,16 +117,16 @@ export default function AccountPage() {
         <div className="col-span-1 md:col-span-2">
           <Tabs defaultValue="profile">
             <TabsList className="mb-4">
-              <TabsTrigger value="profile">Profile</TabsTrigger>
-              <TabsTrigger value="activity">Activity</TabsTrigger>
-              <TabsTrigger value="settings">Settings</TabsTrigger>
+              <TabsTrigger value="profile">Профиль</TabsTrigger>
+              <TabsTrigger value="activity">Активность</TabsTrigger>
+              <TabsTrigger value="settings">Настройки</TabsTrigger>
             </TabsList>
             
             <TabsContent value="profile">
               <Card>
                 <CardHeader>
-                  <CardTitle>Profile Information</CardTitle>
-                  <CardDescription>Your personal information stored in our system</CardDescription>
+                  <CardTitle>Информация о профиле</CardTitle>
+                  <CardDescription>Ваша персональная информация, которую мы храним на сервере</CardDescription>
                 </CardHeader>
                 <CardContent>
                   {loading ? (
@@ -162,8 +162,8 @@ export default function AccountPage() {
             <TabsContent value="activity">
               <Card>
                 <CardHeader>
-                  <CardTitle>Recent Activity</CardTitle>
-                  <CardDescription>Your recent sessions and activities</CardDescription>
+                  <CardTitle>Активность</CardTitle>
+                  <CardDescription>Ваши последние сеансы и действия</CardDescription>
                 </CardHeader>
                 <CardContent>
                   {userData?.sessions && userData.sessions.length > 0 ? (
@@ -189,13 +189,13 @@ export default function AccountPage() {
             <TabsContent value="settings">
               <Card>
                 <CardHeader>
-                  <CardTitle>Account Settings</CardTitle>
-                  <CardDescription>Manage your account preferences</CardDescription>
+                  <CardTitle>Настройки</CardTitle>
+                  <CardDescription>Управляйте настройками своего аккаунта</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div className="grid gap-2">
-                      <div className="font-medium">Connected Accounts</div>
+                      <div className="font-medium">Подключенные учетные записи</div>
                       {userData?.accounts && userData.accounts.length > 0 ? (
                         <div className="space-y-2">
                           {userData.accounts.map((account: any) => (
@@ -214,7 +214,7 @@ export default function AccountPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button disabled className="w-full">Update Settings (Coming Soon)</Button>
+                  <Button disabled className="w-full">Обновление настроек (скоро)</Button>
                 </CardFooter>
               </Card>
             </TabsContent>
