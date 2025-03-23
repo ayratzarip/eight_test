@@ -60,15 +60,15 @@ export default function Home() {
       {isMenuOpen && (
         <nav className="md:hidden py-4 border-t">
           <div className="flex flex-col gap-4">
-            <button onClick={() => scrollToSection('about')} className="text-gray-600 hover:text-green-600">About</button>
-            <button onClick={() => scrollToSection('videos')} className="text-gray-600 hover:text-green-600">Videos</button>
-            <button onClick={() => scrollToSection('features')} className="text-gray-600 hover:text-green-600">Features</button>
-            <button onClick={() => scrollToSection('connect')} className="text-gray-600 hover:text-green-600">Connect</button>
+            <button onClick={() => scrollToSection('about')} className="text-gray-600 hover:text-green-600">В начало</button>
+            <button onClick={() => scrollToSection('videos')} className="text-gray-600 hover:text-green-600">О проекте</button>
+            <button onClick={() => scrollToSection('features')} className="text-gray-600 hover:text-green-600">Мы в соцсетях</button>
+            <Link href="/articles" className="text-gray-600 hover:text-green-600 text-center">Статьи</Link>
             <button 
               onClick={() => scrollToSection('start')}
               className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors"
             >
-              Get Started
+              Подключиться
             </button>
           </div>
         </nav>

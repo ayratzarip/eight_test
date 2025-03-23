@@ -50,3 +50,63 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Module {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  image       String
+  price       Float?   @default(0)
+  position    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  lessons     Lesson[]
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  title       String
+  content     String?
+  video_url   String?
+  transcript  String?
+  moduleId    String
+  module      Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  quiz        Quiz?
+
+  @@index([moduleId])
+}
+
+model Quiz {
+  id        String         @id @default(cuid())
+  lessonId  String         @unique
+  lesson    Lesson         @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  questions QuizQuestion[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model QuizQuestion {
+  id       String       @id @default(cuid())
+  quizId   String
+  quiz     Quiz         @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  question String
+  options  QuizOption[]
+  order    Int          @default(0)
+
+  @@index([quizId])
+}
+
+model QuizOption {
+  id                String       @id @default(cuid())
+  questionId        String
+  question          QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  optionText        String
+  isCorrect         Boolean
+  correctComment    String?
+  incorrectComment  String?
+
+  @@index([questionId])
+}

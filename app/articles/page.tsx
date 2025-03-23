@@ -46,7 +46,7 @@ export default function Articles() {
                   </p>
                   <Link href="/articles/article1">
                     <button className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors">
-                      Read More
+                      Читать
                     </button>
                   </Link>
                 </div>
@@ -66,7 +66,7 @@ export default function Articles() {
                   </p>
                   <Link href="/articles/article2">
                     <button className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors">
-                      Read More
+                      Читать
                     </button>
                   </Link>
                 </div>
@@ -86,7 +86,7 @@ export default function Articles() {
                   </p>
                   <Link href="/articles/article3">
                     <button className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors">
-                      Read More
+                      Читать
                     </button>
                   </Link>
                 </div>
@@ -106,7 +106,7 @@ export default function Articles() {
                   </p>
                   <Link href="/articles/article4">
                     <button className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors">
-                      Read More
+                      Читать
                     </button>
                   </Link>
                 </div>

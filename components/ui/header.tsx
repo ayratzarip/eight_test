@@ -26,8 +26,8 @@ export function Header() {
     <header className="border-b">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
-          <img src="/assets/diamond_logo_green.png" alt="Logo" style={{ width: '8%', height: 'auto' }} />
-          <span className="font-semibold text-lg">EightFaces: Soft Skills Engine</span>
+          <img src="/assets/diamond_logo_green.png" alt="Logo" style={{ width: '10%', height: 'auto' }} />
+          <span className="text-gray-600 font-bold">EightFaces: Soft Skills Engine</span>
         </Link>
         <nav className="flex items-center space-x-4">
           {session ? (
