@@ -11,6 +11,8 @@ type Lesson = {
   id: string;
   title: string;
   order: number;
+  isAccessible?: boolean;
+  isCompleted?: boolean;
 };
 
 type Module = {
@@ -19,6 +21,7 @@ type Module = {
   description: string;
   image: string;
   lessons: Lesson[];
+  isAccessible?: boolean;
 };
 
 export default function Lessons() {
@@ -53,8 +56,36 @@ export default function Lessons() {
     moduleId: string;
     lesson: Lesson;
   } | null => {
-    // This is a simplified example - in a real app, you'd track user progress
-    // and determine their actual next lesson
+    // First, look for the first incomplete but accessible lesson
+    for (const module of modules) {
+      if (module.isAccessible) {
+        for (const lesson of module.lessons) {
+          if (lesson.isAccessible && !lesson.isCompleted) {
+            return {
+              moduleTitle: module.title,
+              moduleId: module.id,
+              lesson: lesson
+            };
+          }
+        }
+      }
+    }
+    
+    // If no incomplete lessons found, fallback to the first lesson that is accessible
+    for (const module of modules) {
+      if (module.isAccessible && module.lessons && module.lessons.length > 0) {
+        const accessibleLesson = module.lessons.find(lesson => lesson.isAccessible);
+        if (accessibleLesson) {
+          return {
+            moduleTitle: module.title,
+            moduleId: module.id,
+            lesson: accessibleLesson
+          };
+        }
+      }
+    }
+    
+    // Fallback to the first lesson of the first module if no accessible lessons found
     const firstModuleWithLessons = modules.find(module => module.lessons && module.lessons.length > 0);
     if (firstModuleWithLessons && firstModuleWithLessons.lessons) {
       return {
@@ -63,6 +94,7 @@ export default function Lessons() {
         lesson: firstModuleWithLessons.lessons[0]
       };
     }
+    
     return null;
   };
 
@@ -148,12 +180,29 @@ export default function Lessons() {
                       <ul className="space-y-2">
                         {module.lessons.map(lesson => (
                           <li key={lesson.id}>
-                            <a 
-                              href={`/lessons/module/${module.id}/lesson/${lesson.id}`}
-                              className="block p-2 hover:bg-gray-100 hover:text-green-600 rounded text-sm transition-colors"
-                            >
-                              {lesson.title}
-                            </a>
+                            {lesson.isAccessible ? (
+                              <a 
+                                href={`/lessons/module/${module.id}/lesson/${lesson.id}`}
+                                className={`block p-2 rounded text-sm transition-colors flex justify-between items-center 
+                                  ${lesson.isCompleted ? 'text-green-600' : 'hover:bg-gray-100 hover:text-green-600'}`}
+                              >
+                                <span>{lesson.title}</span>
+                                {lesson.isCompleted && (
+                                  <span className="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">
+                                    Пройден
+                                  </span>
+                                )}
+                              </a>
+                            ) : (
+                              <div 
+                                className="block p-2 text-gray-400 rounded text-sm flex justify-between items-center cursor-not-allowed"
+                              >
+                                <span>{lesson.title}</span>
+                                <span className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full">
+                                  Заблокирован
+                                </span>
+                              </div>
+                            )}
                           </li>
                         ))}
                       </ul>

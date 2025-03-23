@@ -34,13 +34,14 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String          @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?         @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  progress      UserProgress[]
 }
 
 model VerificationToken {
@@ -64,17 +65,18 @@ model Module {
 }
 
 model Lesson {
-  id          String   @id @default(cuid())
+  id          String         @id @default(cuid())
   title       String
   content     String?
   video_url   String?
   transcript  String?
   moduleId    String
-  module      Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
-  order       Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  module      Module         @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  order       Int            @default(0)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
   quiz        Quiz?
+  progress    UserProgress[]
 
   @@index([moduleId])
 }
@@ -109,4 +111,19 @@ model QuizOption {
   incorrectComment  String?
 
   @@index([questionId])
+}
+
+model UserProgress {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  completed Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, lessonId])
+  @@index([userId])
+  @@index([lessonId])
 }

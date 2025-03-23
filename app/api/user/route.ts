@@ -21,12 +21,13 @@ export async function GET() {
       return NextResponse.json({ error: 'User email not found in session' }, { status: 400 });
     }
     
-    // Find user with related accounts and sessions
+    // Find user with related accounts, sessions, and progress
     const userData = await prisma.user.findUnique({
       where: { email: userEmail },
       include: {
         accounts: true,
-        sessions: true
+        sessions: true,
+        progress: true
       }
     });
     
@@ -35,11 +36,12 @@ export async function GET() {
       return NextResponse.json({
         ...session.user,
         accounts: [],
-        sessions: []
+        sessions: [],
+        progress: []
       });
     }
     
-    // Return the user with their accounts and sessions
+    // Return the user with their accounts, sessions, and progress
     return NextResponse.json(userData);
   } catch (error) {
     console.error('Error fetching user data:', error);

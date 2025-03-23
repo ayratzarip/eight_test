@@ -47,6 +47,15 @@ export default function LessonPage({ params }: { params: { moduleId: string; les
         const response = await fetch(`/api/lessons/${params.lessonId}`);
         
         if (!response.ok) {
+          const errorData = await response.json();
+          
+          if (response.status === 403) {
+            // Unauthorized access to this lesson
+            setError(errorData.error || 'Вы должны пройти предыдущие уроки, чтобы получить доступ к этому уроку.');
+            setIsLoading(false);
+            return;
+          }
+          
           throw new Error('Failed to fetch lesson data');
         }
         
@@ -225,7 +234,28 @@ export default function LessonPage({ params }: { params: { moduleId: string; les
                   <Button 
                     size="lg" 
                     className="bg-green-600 hover:bg-green-700 text-white font-medium rounded-full"
-                    onClick={() => window.location.href = '/lessons'}
+                    onClick={async () => {
+                      try {
+                        // Mark the lesson as completed in the database
+                        const response = await fetch('/api/user/progress', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({ lessonId: lesson.id }),
+                        });
+                        
+                        if (!response.ok) {
+                          throw new Error('Failed to mark lesson as completed');
+                        }
+                        
+                        // Redirect to lessons page
+                        window.location.href = '/lessons';
+                      } catch (error) {
+                        console.error('Error completing lesson:', error);
+                        alert('Не удалось отметить урок как завершенный. Пожалуйста, попробуйте снова.');
+                      }
+                    }}
                   >
                     Завершить урок
                   </Button>
