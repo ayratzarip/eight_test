@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Header } from '@/components/ui/header';
@@ -14,6 +14,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale/ru';
+import * as Encryption from '@/lib/encryption';
 
 type LogEntry = {
   id: string;
@@ -24,6 +25,8 @@ type LogEntry = {
   bodySensations: string;
   actions: string;
   howToAct: string;
+  encryptedData: string;
+  iv: string;
   createdAt: string;
 };
 
@@ -40,6 +43,8 @@ export default function LogbookPage() {
     actions: '',
     howToAct: ''
   });
+  const [encryptionKey, setEncryptionKey] = useState<CryptoKey | null>(null);
+  const [encryptedUserKey, setEncryptedUserKey] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState({
     attentionFocus: false,
@@ -69,6 +74,55 @@ export default function LogbookPage() {
     }
   }, [status, router]);
 
+  // Function to decrypt the user's master key
+  const decryptUserKey = useCallback(async (encryptedKey: string): Promise<CryptoKey | null> => {
+    if (!session?.user?.id) return null;
+    
+    try {
+      // Use the user's ID as the token to decrypt the key
+      // In a real implementation, you would use a more secure mechanism
+      const decryptedKeyBase64 = await Encryption.decryptMasterKey(encryptedKey, session.user.id);
+      return await Encryption.importKeyFromBase64(decryptedKeyBase64);
+    } catch (error) {
+      console.error('Error decrypting user key:', error);
+      return null;
+    }
+  }, [session]);
+  
+  // Function to decrypt logbook entries
+  const decryptEntries = useCallback(async (entries: LogEntry[], key: CryptoKey): Promise<LogEntry[]> => {
+    if (!key) return entries;
+    
+    const decryptedEntries = await Promise.all(
+      entries.map(async (entry) => {
+        // Skip entries that don't have encrypted data (legacy entries)
+        if (!entry.encryptedData || entry.encryptedData === 'placeholder') {
+          return entry;
+        }
+        
+        try {
+          // Decrypt the entry data
+          const decryptedData = await Encryption.decryptData(entry.encryptedData, entry.iv, key);
+          
+          // Merge the decrypted data with the entry
+          return {
+            ...entry,
+            attentionFocus: decryptedData.attentionFocus || entry.attentionFocus,
+            thoughts: decryptedData.thoughts || entry.thoughts,
+            bodySensations: decryptedData.bodySensations || entry.bodySensations,
+            actions: decryptedData.actions || entry.actions,
+            howToAct: decryptedData.howToAct || entry.howToAct
+          };
+        } catch (error) {
+          console.error('Error decrypting entry:', error);
+          return entry;
+        }
+      })
+    );
+    
+    return decryptedEntries;
+  }, []);
+
   // Fetch logbook entries
   useEffect(() => {
     if (session) {
@@ -78,8 +132,28 @@ export default function LogbookPage() {
           if (!response.ok) {
             throw new Error('Failed to fetch logbook entries');
           }
+          
           const data = await response.json();
-          setEntries(data);
+          const { entries, encryptedKey } = data;
+          
+          setEncryptedUserKey(encryptedKey);
+          
+          // Try to decrypt the user's key
+          if (encryptedKey) {
+            const key = await decryptUserKey(encryptedKey);
+            if (key) {
+              setEncryptionKey(key);
+              
+              // Decrypt the entries
+              const decryptedEntries = await decryptEntries(entries, key);
+              setEntries(decryptedEntries);
+            } else {
+              setEntries(entries);
+            }
+          } else {
+            setEntries(entries);
+          }
+          
           setIsLoading(false);
         } catch (error) {
           console.error('Error fetching logbook entries:', error);
@@ -89,7 +163,7 @@ export default function LogbookPage() {
 
       fetchEntries();
     }
-  }, [session]);
+  }, [session, decryptUserKey, decryptEntries]);
 
   // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -435,12 +509,38 @@ export default function LogbookPage() {
     setIsSubmitting(true);
     
     try {
+      // Create the data to be encrypted
+      const dataToEncrypt = { ...newEntry };
+      
+      // Encrypt the data if we have an encryption key
+      let encryptedData = '';
+      let iv = '';
+      
+      if (encryptionKey) {
+        try {
+          // Encrypt the data
+          const encrypted = await Encryption.encryptData(dataToEncrypt, encryptionKey);
+          encryptedData = encrypted.encryptedData;
+          iv = encrypted.iv;
+        } catch (error) {
+          console.error('Error encrypting entry:', error);
+          // Continue with unencrypted data as fallback
+        }
+      }
+      
+      // Prepare the payload
+      const payload = {
+        ...newEntry,
+        encryptedData,
+        iv
+      };
+      
       const response = await fetch('/api/logbook', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newEntry),
+        body: JSON.stringify(payload),
       });
       
       if (!response.ok) {
@@ -490,6 +590,71 @@ export default function LogbookPage() {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return format(date, 'dd MMMM yyyy, HH:mm', { locale: ru });
+  };
+  
+  // Export logbook entries to CSV
+  const handleExportToCSV = () => {
+    // CSV header row
+    const csvHeader = [
+      'Дата и время', 
+      'Фокус внимания', 
+      'Мысли', 
+      'Телесные ощущения', 
+      'Действия', 
+      'Как действовать'
+    ].join(',');
+    
+    // Format entries as CSV rows
+    const csvRows = entries.map(entry => {
+      // Format date for CSV
+      const date = new Date(entry.dateTime);
+      const formattedDate = format(date, 'dd.MM.yyyy HH:mm');
+      
+      // Escape and quote cell values to handle commas and quotes in the text
+      const escapeCsvValue = (value: string) => {
+        // Replace double quotes with two double quotes and wrap in quotes
+        return `"${value.replace(/"/g, '""')}"`;
+      };
+      
+      // Get values from the current entry (they're already decrypted in the state)
+      return [
+        escapeCsvValue(formattedDate),
+        escapeCsvValue(entry.attentionFocus),
+        escapeCsvValue(entry.thoughts),
+        escapeCsvValue(entry.bodySensations),
+        escapeCsvValue(entry.actions),
+        escapeCsvValue(entry.howToAct)
+      ].join(',');
+    });
+    
+    // Combine header and rows
+    const csvContent = [csvHeader, ...csvRows].join('\n');
+    
+    // Create a Blob with the CSV content
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    
+    // Create a URL for the Blob
+    const url = URL.createObjectURL(blob);
+    
+    // Create a link element to trigger the download
+    const link = document.createElement('a');
+    
+    // Set the filename with current date
+    const today = format(new Date(), 'yyyy-MM-dd');
+    link.download = `logbook-${today}.csv`;
+    
+    // Set the URL
+    link.href = url;
+    
+    // Append the link to the document
+    document.body.appendChild(link);
+    
+    // Trigger the download
+    link.click();
+    
+    // Clean up
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   if (status === 'loading' || isLoading) {
@@ -548,6 +713,16 @@ export default function LogbookPage() {
                     Редактировать
                   </Button>
                   
+                  {entries.length > 0 && (
+                    <Button
+                      onClick={handleExportToCSV}
+                      variant="outline"
+                      className="rounded-full"
+                    >
+                      Экспорт
+                    </Button>
+                  )}
+                  
                   <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
                       <Button className="bg-green-600 text-white rounded-full hover:bg-green-700">
@@ -567,7 +742,7 @@ export default function LogbookPage() {
                         <SelectTrigger 
                           id="attentionFocus"
                         >
-                          <SelectValue placeholder="На что Вы обращали внимание?" />
+                          <SelectValue placeholder="На чем фокусируется внимание?" />
                         </SelectTrigger>
                         <SelectContent className="bg-white">
                           <SelectItem value="На визуальных образах">На визуальных образах</SelectItem>
@@ -585,7 +760,7 @@ export default function LogbookPage() {
                         value={customAttentionFocus}
                         onChange={handleCustomAttentionFocusChange}
                         placeholder="Дополнительные заметки о фокусе внимания..."
-                        className="mt-2"
+                        className="mt-2 placeholder:text-gray-400 text-black"
                       />
                     </div>
                   </div>
@@ -650,6 +825,7 @@ export default function LogbookPage() {
                         onChange={handleCustomThoughtsChange}
                         placeholder="Дополнительные мысли..."
                         rows={2}
+                        className="placeholder:text-gray-400 text-black"
                       />
                     </div>
                   </div>
@@ -682,6 +858,7 @@ export default function LogbookPage() {
                         onChange={handleCustomBodySensationsChange}
                         placeholder="Опишите ваши телесные ощущения..."
                         rows={3}
+                        className="placeholder:text-gray-400 text-black"
                       />
                     </div>
                   </div>
@@ -691,7 +868,7 @@ export default function LogbookPage() {
                     <div className={`p-4 border rounded-md space-y-2 ${formErrors.actions ? "border-red-500" : "border-input"}`}>
                       <Select onValueChange={handleActionsSelect} value={selectedActions}>
                         <SelectTrigger id="actions-select">
-                          <SelectValue placeholder="Какие действия вы предприняли?" />
+                          <SelectValue placeholder="Эффективность действий" />
                         </SelectTrigger>
                         <SelectContent className="bg-white">
                           <SelectItem value="Привели к желаемому результату">Привели к желаемому результату</SelectItem>
@@ -704,7 +881,7 @@ export default function LogbookPage() {
                         value={customActions}
                         onChange={handleCustomActionsChange}
                         placeholder="Опишите подробнее ваши действия..."
-                        className="mt-2"
+                        className="mt-2 placeholder:text-gray-400 text-black"
                         rows={3}
                       />
                     </div>
@@ -729,7 +906,7 @@ export default function LogbookPage() {
                         value={customHowToAct}
                         onChange={handleCustomHowToActChange}
                         placeholder="Опишите подробнее..."
-                        className="mt-2"
+                        className="mt-2 placeholder:text-gray-400 text-black"
                         rows={3}
                       />
                     </div>

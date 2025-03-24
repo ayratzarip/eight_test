@@ -32,8 +32,8 @@ export function Header() {
         <nav className="flex items-center space-x-4">
           {session ? (
             <>
-              <Button variant="ghost" asChild>
-                <Link href="/lessons">Уроки</Link>
+              <Button variant="ghost" className="text-gray-600 hover:text-green-600" asChild>
+                <Link href="/lessons">Начальная страница</Link>
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

@@ -178,7 +178,14 @@ export default function Home() {
         </section>
 
         {/* Post-Video Content */}
-        <section className="bg-white py-16">
+        <section className="bg-white py-16" 
+                  style={{
+                    backgroundImage: 'linear-gradient(rgba(243, 244, 246, 0.8), rgba(243, 244, 246, 0.8)), url(/assets/speaking.png)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundAttachment: 'fixed'
+                  }}>
+          
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl font-bold mb-6">Что Вы здесь найдёте?</h2>
@@ -199,6 +206,58 @@ export default function Home() {
                 <div className="p-6 bg-gray-50 rounded-lg">
                   <h3 className="font-semibold mb-2">Leadership Presence</h3>
                   <p className="text-gray-600 text-sm">Develop executive presence and management skills</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Video Section - 2 */}
+        <section 
+          id="videos_2"
+          className="py-16"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(243, 244, 246, 0.8), rgba(243, 244, 246, 0.8)), url(/assets/employees.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed'
+          }}
+        >
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              <div className="rounded-xl overflow-hidden shadow-xl bg-white">
+                <div className="aspect-video">
+                  <div style={{ padding: '57.63% 0 0 0', position: 'relative' }}>
+                    <iframe
+                      src="https://player.vimeo.com/video/1059455108?h=33d55d43f5&badge=0&autopause=0&player_id=0&app_id=58479"
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                      title="Professional_Mode_The_main_character_motionlessly_"
+                    ></iframe>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">Understanding Social Anxiety</h3>
+                  <p className="text-gray-600">Learn about the science behind social anxiety and how it affects tech professionals. Our expert psychotherapists break down the cognitive patterns that hold you back.</p>
+                </div>
+              </div>
+
+              <div className="rounded-xl overflow-hidden shadow-xl bg-white">
+                <div className="aspect-video">
+                  <div style={{ padding: '57.63% 0 0 0', position: 'relative' }}>
+                    <iframe
+                      src="https://player.vimeo.com/video/1059455108?h=33d55d43f5&badge=0&autopause=0&player_id=0&app_id=58479"
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                      title="Professional_Mode_The_main_character_motionlessly_"
+                    ></iframe>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">Success Stories</h3>
+                  <p className="text-gray-600">Hear from tech professionals who transformed their social confidence through our program. Real stories, real results, and actionable insights you can apply today.</p>
                 </div>
               </div>
             </div>

@@ -39,10 +39,12 @@ model User {
   email         String?         @unique
   emailVerified DateTime?
   image         String?
+  encryptionKey String?         // Encrypted key for user data
   accounts      Account[]
   sessions      Session[]
   progress      UserProgress[]
   logbook       Logbook[]
+  goals         Goal[]
 }
 
 model VerificationToken {
@@ -134,11 +136,38 @@ model Logbook {
   userId          String
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   dateTime        DateTime @default(now())
-  attentionFocus  String
-  thoughts        String
-  bodySensations  String
-  actions         String
-  howToAct        String
+  
+  // Encrypted content
+  encryptedData   String
+  iv              String
+  
+  // Plain text fields (kept for backwards compatibility)
+  attentionFocus  String   @default("")
+  thoughts        String   @default("")
+  bodySensations  String   @default("")
+  actions         String   @default("")
+  howToAct        String   @default("")
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Goal {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Encrypted content
+  encryptedData   String
+  iv              String
+  
+  // Plain text fields (kept for backwards compatibility)
+  text            String   @default("")
+  isCompleted     Boolean  @default(false)
+  order           Int      @default(0)
+  
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 

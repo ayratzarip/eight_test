@@ -115,8 +115,8 @@ export default function Lessons() {
           {/* User greeting */}
           {session?.user && (
             <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
-              <div className="flex items-center justify-between">
-                <div>
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                <div className="mb-4 md:mb-0">
                   <h2 className="text-2xl font-bold">Привет, {session.user.name || 'User'}</h2>
                   {getNextLesson() ? (
                     <p className="text-gray-600">
@@ -126,7 +126,13 @@ export default function Lessons() {
                     <p className="text-gray-600">Выберите модуль, чтобы начать обучение</p>
                   )}
                 </div>
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-3">
+                  <Button 
+                    className="px-4 py-2 border border-green-600 text-green-600 bg-white rounded-full hover:bg-green-50 transition-colors"
+                    onClick={() => window.location.href = "/goals"}
+                  >
+                    Мои цели
+                  </Button>
                   <Button 
                     className="px-4 py-2 border border-green-600 text-green-600 bg-white rounded-full hover:bg-green-50 transition-colors"
                     onClick={() => window.location.href = "/logbook"}

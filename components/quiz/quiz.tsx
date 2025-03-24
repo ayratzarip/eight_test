@@ -85,9 +85,9 @@ export default function QuizComponent({ lessonId, onComplete }: QuizProps) {
         // Process the quiz data to ensure isCorrect property exists on all options
         const processedQuiz = {
           ...data.quiz,
-          questions: data.quiz.questions.map(question => ({
+          questions: data.quiz.questions.map((question: any) => ({
             ...question,
-            options: question.options.map(option => ({
+            options: question.options.map((option: any) => ({
               ...option,
               // Ensure isCorrect is a boolean
               isCorrect: option.isCorrect === true

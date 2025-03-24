@@ -35,7 +35,7 @@ export async function GET() {
     });
     
     // If the user is authenticated, fetch their progress
-    let userProgress = [];
+    let userProgress: { userId: string, lessonId: string, completed: boolean }[] = [];
     if (userId) {
       userProgress = await prisma.userProgress.findMany({
         where: {
