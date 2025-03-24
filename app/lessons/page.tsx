@@ -126,14 +126,22 @@ export default function Lessons() {
                     <p className="text-gray-600">Выберите модуль, чтобы начать обучение</p>
                   )}
                 </div>
-                {getNextLesson() && (
+                <div className="flex gap-4">
                   <Button 
-                    className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors"
-                    onClick={() => window.location.href = `/lessons/module/${getNextLesson()?.moduleId}/lesson/${getNextLesson()?.lesson.id}`}
+                    className="px-4 py-2 border border-green-600 text-green-600 bg-white rounded-full hover:bg-green-50 transition-colors"
+                    onClick={() => window.location.href = "/logbook"}
                   >
-                    Продолжить обучение
+                    Дневник наблюдений
                   </Button>
-                )}
+                  {getNextLesson() && (
+                    <Button 
+                      className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors"
+                      onClick={() => window.location.href = `/lessons/module/${getNextLesson()?.moduleId}/lesson/${getNextLesson()?.lesson.id}`}
+                    >
+                      Продолжить обучение
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           )}

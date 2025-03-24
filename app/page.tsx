@@ -290,9 +290,9 @@ export default function Home() {
                 </label>
               </div>
               <button
-                className={`flex items-center justify-center gap-2 mx-auto px-8 py-4 rounded-full text-lg font-semibold transition-all
+                className={`flex items-center justify-center gap-2 mx-auto px-8 py-4 text-white rounded-full text-lg font-semibold transition-all
                   ${isChecked 
-                    ? 'bg-green-500 hover:bg-green-600 cursor-pointer' 
+                    ? 'bg-green-600 hover:bg-green-700 cursor-pointer' 
                     : 'bg-gray-600 cursor-not-allowed'}`}
                 disabled={!isChecked}
                 onClick={() => isChecked && router.push('/lessons')}

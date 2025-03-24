@@ -42,6 +42,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   progress      UserProgress[]
+  logbook       Logbook[]
 }
 
 model VerificationToken {
@@ -126,4 +127,20 @@ model UserProgress {
   @@unique([userId, lessonId])
   @@index([userId])
   @@index([lessonId])
+}
+
+model Logbook {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dateTime        DateTime @default(now())
+  attentionFocus  String
+  thoughts        String
+  bodySensations  String
+  actions         String
+  howToAct        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
 }

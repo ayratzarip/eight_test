@@ -437,28 +437,6 @@ export default function QuizComponent({ lessonId, onComplete }: QuizProps) {
           </div>
         </div>
         
-        {/* Overall feedback message */}
-        {currentFeedback && (
-          <div className={`mt-6 p-4 rounded-md ${currentFeedback.isCorrect ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
-            <div className="flex items-start gap-2">
-              {currentFeedback.isCorrect ? (
-                <CheckCircle className="h-5 w-5 mt-0.5" />
-              ) : (
-                <XCircle className="h-5 w-5 mt-0.5" />
-              )}
-              <div>
-                <p className="font-medium">
-                  {currentFeedback.isCorrect ? 'Правильно!' : 'Неправильно!'}
-                </p>
-                <p className="mt-1">
-                  {currentFeedback.isCorrect 
-                    ? 'Вы выбрали все правильные ответы.'
-                    : 'Обратите внимание на отмеченные ответы и попробуйте еще раз.'}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
         
         <div className="flex justify-between mt-6">
           <Button
