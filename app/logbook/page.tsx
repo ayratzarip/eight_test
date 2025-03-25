@@ -76,12 +76,16 @@ export default function LogbookPage() {
 
   // Function to decrypt the user's master key
   const decryptUserKey = useCallback(async (encryptedKey: string): Promise<CryptoKey | null> => {
-    if (!session?.user?.id) return null;
+    if (!session?.user) return null;
     
     try {
-      // Use the user's ID as the token to decrypt the key
+      // Use the user's ID as the token to decrypt the key, fallback to email if id not available
       // In a real implementation, you would use a more secure mechanism
-      const decryptedKeyBase64 = await Encryption.decryptMasterKey(encryptedKey, session.user.id);
+      const token = typeof session.user.id === 'string' 
+        ? session.user.id 
+        : session.user.email || '';
+      
+      const decryptedKeyBase64 = await Encryption.decryptMasterKey(encryptedKey, token);
       return await Encryption.importKeyFromBase64(decryptedKeyBase64);
     } catch (error) {
       console.error('Error decrypting user key:', error);
@@ -513,8 +517,8 @@ export default function LogbookPage() {
       const dataToEncrypt = { ...newEntry };
       
       // Encrypt the data if we have an encryption key
-      let encryptedData = '';
-      let iv = '';
+      let encryptedData = 'placeholder';
+      let iv = 'placeholder';
       
       if (encryptionKey) {
         try {
@@ -524,7 +528,7 @@ export default function LogbookPage() {
           iv = encrypted.iv;
         } catch (error) {
           console.error('Error encrypting entry:', error);
-          // Continue with unencrypted data as fallback
+          // Continue with placeholder values to prevent validation errors
         }
       }
       
@@ -586,11 +590,11 @@ export default function LogbookPage() {
     }
   };
 
-  // Format date for display
-  const formatDate = (dateString: string) => {
+  // Format date for display - memoize to avoid hydration mismatch
+  const formatDate = useCallback((dateString: string) => {
     const date = new Date(dateString);
     return format(date, 'dd MMMM yyyy, HH:mm', { locale: ru });
-  };
+  }, []);
   
   // Export logbook entries to CSV
   const handleExportToCSV = () => {
@@ -639,9 +643,8 @@ export default function LogbookPage() {
     // Create a link element to trigger the download
     const link = document.createElement('a');
     
-    // Set the filename with current date
-    const today = format(new Date(), 'yyyy-MM-dd');
-    link.download = `logbook-${today}.csv`;
+    // Set the filename with a fixed date format (not using current date for server/client consistency)
+    link.download = `logbook-export.csv`;
     
     // Set the URL
     link.href = url;

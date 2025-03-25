@@ -33,6 +33,18 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      // If the URL is relative, prepend the base URL
+      if (url.startsWith('/')) {
+        return `${baseUrl}${url}`;
+      } 
+      // If the URL is already absolute and on the same origin, return it
+      else if (new URL(url).origin === baseUrl) {
+        return url;
+      }
+      // Default fallback is to redirect to lessons page
+      return `${baseUrl}/lessons`;
+    },
   },
   pages: {
     signIn: '/auth/signin',

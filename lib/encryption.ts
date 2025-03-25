@@ -139,36 +139,63 @@ export async function decryptMasterKey(encryptedMasterKey: string, token: string
     ['encrypt', 'decrypt']
   );
   
-  // Split the encrypted data into its components (format: iv.authTag.encrypted)
-  const parts = encryptedMasterKey.split('.');
-  if (parts.length !== 3) {
-    throw new Error('Invalid encrypted data format');
+  try {
+    // Try to decode as server-side format (format: iv.authTag.encrypted)
+    const parts = encryptedMasterKey.split('.');
+    if (parts.length === 3) {
+      const [ivBase64, authTagBase64, encryptedBase64] = parts;
+      
+      // Convert from base64
+      const iv = new Uint8Array(Array.from(atob(ivBase64), c => c.charCodeAt(0)));
+      const authTag = new Uint8Array(Array.from(atob(authTagBase64), c => c.charCodeAt(0)));
+      const encrypted = new Uint8Array(Array.from(atob(encryptedBase64), c => c.charCodeAt(0)));
+      
+      // Combine encrypted data and auth tag (for GCM we need to append the auth tag)
+      const ciphertext = new Uint8Array(encrypted.length + authTag.length);
+      ciphertext.set(encrypted);
+      ciphertext.set(authTag, encrypted.length);
+      
+      // Decrypt the master key
+      const decryptedData = await window.crypto.subtle.decrypt(
+        {
+          name: 'AES-GCM',
+          iv,
+          tagLength: 128 // GCM authentication tag is 16 bytes (128 bits)
+        },
+        derivedKey,
+        ciphertext
+      );
+      
+      // Return as string
+      return decoder.decode(decryptedData);
+    } else {
+      // Handle client-side format (IV + encrypted data)
+      const binary = atob(encryptedMasterKey);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      
+      // Extract IV (12 bytes) and encrypted data
+      const iv = bytes.slice(0, 12);
+      const encryptedData = bytes.slice(12);
+      
+      // Decrypt the data
+      const decryptedData = await window.crypto.subtle.decrypt(
+        {
+          name: 'AES-GCM',
+          iv
+        },
+        derivedKey,
+        encryptedData
+      );
+      
+      return decoder.decode(decryptedData);
+    }
+  } catch (error) {
+    console.error('Error decrypting master key:', error);
+    throw new Error('Failed to decrypt master key');
   }
-  
-  const [ivBase64, authTagBase64, encryptedBase64] = parts;
-  
-  // Convert from base64
-  const iv = new Uint8Array(Array.from(atob(ivBase64), c => c.charCodeAt(0)));
-  const authTag = new Uint8Array(Array.from(atob(authTagBase64), c => c.charCodeAt(0)));
-  const encrypted = new Uint8Array(Array.from(atob(encryptedBase64), c => c.charCodeAt(0)));
-  
-  // Combine encrypted data and auth tag
-  const ciphertext = new Uint8Array(encrypted.length + authTag.length);
-  ciphertext.set(encrypted);
-  ciphertext.set(authTag, encrypted.length);
-  
-  // Decrypt the master key
-  const decryptedData = await window.crypto.subtle.decrypt(
-    {
-      name: 'AES-GCM',
-      iv,
-    },
-    derivedKey,
-    encrypted
-  );
-  
-  // Return as string
-  return decoder.decode(decryptedData);
 }
 
 /**
