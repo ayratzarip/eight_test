@@ -74,10 +74,7 @@ export async function GET(request: Request) {
     // Get goals with ordering
     const goals = await prisma.goal.findMany({
       where: { userId: user.id },
-      orderBy: [
-        { isCompleted: 'asc' }, // Incomplete goals first
-        { order: 'asc' }        // Then by order
-      ],
+      orderBy: { order: 'asc' },
     });
     
     // Include the encrypted key in the response for client-side decryption
@@ -107,11 +104,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    const { text, isCompleted, encryptedData, iv } = await request.json();
+    const { encryptedData, iv } = await request.json();
 
-    // Validate required fields - allow placeholder values to handle fallback encryption
-    if (!text && ((!encryptedData && encryptedData !== 'placeholder') || (!iv && iv !== 'placeholder'))) {
-      return NextResponse.json({ error: 'Text or encrypted data is required' }, { status: 400 });
+    // Validate required fields
+    if (!encryptedData || !iv) {
+      return NextResponse.json({ error: 'Encrypted data is required' }, { status: 400 });
     }
     
     // Make sure the user has an encryption key
@@ -136,12 +133,10 @@ export async function POST(request: Request) {
     const newGoal = await prisma.goal.create({
       data: {
         userId: user.id,
-        text: text || '',
-        isCompleted: isCompleted || false,
         order: nextOrder, // Set the order to the next available value
         // Store the encrypted data
-        encryptedData: encryptedData || '',
-        iv: iv || ''
+        encryptedData,
+        iv
       },
     });
 
@@ -169,7 +164,7 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    const { id, text, isCompleted, order, encryptedData, iv } = await request.json();
+    const { id, order, encryptedData, iv } = await request.json();
 
     if (!id) {
       return NextResponse.json({ error: 'Goal ID is required' }, { status: 400 });
@@ -187,8 +182,6 @@ export async function PUT(request: Request) {
 
     // Update the goal
     const updateData: any = {};
-    if (text !== undefined) updateData.text = text;
-    if (isCompleted !== undefined) updateData.isCompleted = isCompleted;
     if (order !== undefined) updateData.order = order;
     if (encryptedData) updateData.encryptedData = encryptedData;
     if (iv) updateData.iv = iv;

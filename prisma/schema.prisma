@@ -137,16 +137,9 @@ model Logbook {
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   dateTime        DateTime @default(now())
   
-  // Encrypted content
+  // Encrypted content only
   encryptedData   String
   iv              String
-  
-  // Plain text fields (kept for backwards compatibility)
-  attentionFocus  String   @default("")
-  thoughts        String   @default("")
-  bodySensations  String   @default("")
-  actions         String   @default("")
-  howToAct        String   @default("")
   
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -159,13 +152,11 @@ model Goal {
   userId          String
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   
-  // Encrypted content
+  // Encrypted content only
   encryptedData   String
   iv              String
   
-  // Plain text fields (kept for backwards compatibility)
-  text            String   @default("")
-  isCompleted     Boolean  @default(false)
+  // Need to keep order for sorting
   order           Int      @default(0)
   
   createdAt       DateTime @default(now())

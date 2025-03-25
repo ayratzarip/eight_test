@@ -114,10 +114,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    const { attentionFocus, thoughts, bodySensations, actions, howToAct, encryptedData, iv } = await request.json();
+    const { encryptedData, iv } = await request.json();
 
-    // Validate required fields - allow placeholder values to handle fallback encryption
-    if ((!encryptedData && encryptedData !== 'placeholder') || (!iv && iv !== 'placeholder')) {
+    // Validate required fields
+    if (!encryptedData || !iv) {
       return NextResponse.json({ error: 'Encrypted data is required' }, { status: 400 });
     }
     
@@ -134,12 +134,6 @@ export async function POST(request: Request) {
     const newEntry = await prisma.logbook.create({
       data: {
         userId: user.id,
-        attentionFocus: attentionFocus || '',
-        thoughts: thoughts || '',
-        bodySensations: bodySensations || '',
-        actions: actions || '',
-        howToAct: howToAct || '',
-        // Store the encrypted data
         encryptedData,
         iv
       },

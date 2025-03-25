@@ -313,28 +313,17 @@ export default function GoalsPage() {
         isCompleted: false 
       };
       
-      // Encrypt the data if we have an encryption key
-      let encryptedData = '';
-      let iv = '';
-      
-      if (encryptionKey) {
-        try {
-          // Encrypt the data
-          const encrypted = await Encryption.encryptData(dataToEncrypt, encryptionKey);
-          encryptedData = encrypted.encryptedData;
-          iv = encrypted.iv;
-        } catch (error) {
-          console.error('Error encrypting goal:', error);
-          // Continue with unencrypted data as fallback
-        }
+      // Encrypt the data
+      if (!encryptionKey) {
+        throw new Error('Encryption key is not available');
       }
       
-      // Prepare the payload
+      const encrypted = await Encryption.encryptData(dataToEncrypt, encryptionKey);
+      
+      // Prepare the payload with only encrypted data
       const payload = {
-        text: newGoalText,
-        isCompleted: false,
-        encryptedData,
-        iv
+        encryptedData: encrypted.encryptedData,
+        iv: encrypted.iv
       };
       
       const response = await fetch('/api/goals', {
@@ -351,8 +340,14 @@ export default function GoalsPage() {
       
       const savedGoal = await response.json();
       
+      // Create a complete goal object for the UI by combining the server response with decrypted data
+      const completeGoal = {
+        ...savedGoal,
+        ...dataToEncrypt
+      };
+      
       // Add the new goal to the goals list
-      setGoals(prev => [savedGoal, ...prev]);
+      setGoals(prev => [completeGoal, ...prev]);
       
       // Reset the form and close the dialog
       setNewGoalText('');
@@ -382,20 +377,12 @@ export default function GoalsPage() {
         isCompleted: updatedGoal.isCompleted 
       };
       
-      // Encrypt the data if we have an encryption key
-      let encryptedData = '';
-      let iv = '';
-      
-      if (encryptionKey) {
-        try {
-          // Encrypt the data
-          const encrypted = await Encryption.encryptData(dataToEncrypt, encryptionKey);
-          encryptedData = encrypted.encryptedData;
-          iv = encrypted.iv;
-        } catch (error) {
-          console.error('Error encrypting goal:', error);
-        }
+      // Encrypt the data
+      if (!encryptionKey) {
+        throw new Error('Encryption key is not available');
       }
+      
+      const encrypted = await Encryption.encryptData(dataToEncrypt, encryptionKey);
 
       // Optimistically update UI
       setGoals(prev => prev.map(goal => 
@@ -413,9 +400,8 @@ export default function GoalsPage() {
         },
         body: JSON.stringify({
           id: goalId,
-          isCompleted: updatedGoal.isCompleted,
-          encryptedData,
-          iv
+          encryptedData: encrypted.encryptedData,
+          iv: encrypted.iv
         }),
       });
 
@@ -460,20 +446,12 @@ export default function GoalsPage() {
         isCompleted: updatedGoal.isCompleted 
       };
       
-      // Encrypt the data if we have an encryption key
-      let encryptedData = '';
-      let iv = '';
-      
-      if (encryptionKey) {
-        try {
-          // Encrypt the data
-          const encrypted = await Encryption.encryptData(dataToEncrypt, encryptionKey);
-          encryptedData = encrypted.encryptedData;
-          iv = encrypted.iv;
-        } catch (error) {
-          console.error('Error encrypting goal:', error);
-        }
+      // Encrypt the data
+      if (!encryptionKey) {
+        throw new Error('Encryption key is not available');
       }
+      
+      const encrypted = await Encryption.encryptData(dataToEncrypt, encryptionKey);
 
       // Optimistically update UI
       setGoals(prev => prev.map(goal => 
@@ -488,9 +466,8 @@ export default function GoalsPage() {
         },
         body: JSON.stringify({
           id: goalId,
-          text: editedGoalText,
-          encryptedData,
-          iv
+          encryptedData: encrypted.encryptedData,
+          iv: encrypted.iv
         }),
       });
 
@@ -667,10 +644,10 @@ export default function GoalsPage() {
       
       <main className="flex-grow pt-20">
         <div className="container mx-auto px-4 py-8">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold">Мои цели</h1>
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-4">Мои цели</h1>
             
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2 md:flex-nowrap">
               <Button
                 onClick={toggleEditMode}
                 variant={isEditMode ? "default" : "outline"}

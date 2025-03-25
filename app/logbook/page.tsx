@@ -12,6 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
+import { Edit, Plus, Download, X, Check } from 'lucide-react';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale/ru';
 import * as Encryption from '@/lib/encryption';
@@ -513,30 +514,24 @@ export default function LogbookPage() {
     setIsSubmitting(true);
     
     try {
-      // Create the data to be encrypted
-      const dataToEncrypt = { ...newEntry };
+      // Create the data to be encrypted - this will include all fields
+      const dataToEncrypt = { 
+        ...newEntry,
+        dateTime: new Date().toISOString() // Add the current date/time
+      };
       
-      // Encrypt the data if we have an encryption key
-      let encryptedData = 'placeholder';
-      let iv = 'placeholder';
-      
-      if (encryptionKey) {
-        try {
-          // Encrypt the data
-          const encrypted = await Encryption.encryptData(dataToEncrypt, encryptionKey);
-          encryptedData = encrypted.encryptedData;
-          iv = encrypted.iv;
-        } catch (error) {
-          console.error('Error encrypting entry:', error);
-          // Continue with placeholder values to prevent validation errors
-        }
+      // Encrypt the data
+      if (!encryptionKey) {
+        throw new Error('Encryption key is not available');
       }
       
-      // Prepare the payload
+      // Encrypt the data
+      const encrypted = await Encryption.encryptData(dataToEncrypt, encryptionKey);
+      
+      // Prepare the payload with only encrypted data
       const payload = {
-        ...newEntry,
-        encryptedData,
-        iv
+        encryptedData: encrypted.encryptedData,
+        iv: encrypted.iv
       };
       
       const response = await fetch('/api/logbook', {
@@ -553,8 +548,14 @@ export default function LogbookPage() {
       
       const savedEntry = await response.json();
       
+      // Create a complete entry object for the UI by combining the server response with decrypted data
+      const completeEntry = {
+        ...savedEntry,
+        ...dataToEncrypt
+      };
+      
       // Add the new entry to the entries list
-      setEntries(prev => [savedEntry, ...prev]);
+      setEntries(prev => [completeEntry, ...prev]);
       
       // Reset the form and close the dialog
       setNewEntry({
@@ -681,28 +682,28 @@ export default function LogbookPage() {
       
       <main className="flex-grow pt-20">
         <div className="container mx-auto px-4 py-8">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold">Дневник наблюдений</h1>
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-4">Дневник наблюдений</h1>
             
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2 md:flex-nowrap">
               {isEditMode ? (
                 <>
                   <Button
                     onClick={toggleEditMode}
                     variant="outline"
-                    className="rounded-full"
+                    className="rounded-full flex items-center gap-1"
                   >
-                    Отмена
+                    <X className="h-4 w-4" /> Отмена
                   </Button>
                   
                   {selectedEntries.length > 0 && (
                     <Button
                       onClick={handleDeleteEntries}
                       variant="destructive"
-                      className="rounded-full"
+                      className="rounded-full flex items-center gap-1"
                       disabled={isDeleting}
                     >
-                      {isDeleting ? 'Удаление...' : `Удалить (${selectedEntries.length})`}
+                      <X className="h-4 w-4" /> {isDeleting ? 'Удаление...' : `Удалить (${selectedEntries.length})`}
                     </Button>
                   )}
                 </>
@@ -711,25 +712,25 @@ export default function LogbookPage() {
                   <Button
                     onClick={toggleEditMode}
                     variant="outline"
-                    className="rounded-full"
+                    className="rounded-full flex items-center gap-1"
                   >
-                    Редактировать
+                    <Edit className="h-4 w-4" /> Редактировать
                   </Button>
                   
                   {entries.length > 0 && (
                     <Button
                       onClick={handleExportToCSV}
                       variant="outline"
-                      className="rounded-full"
+                      className="rounded-full flex items-center gap-1"
                     >
-                      Экспорт
+                      <Download className="h-4 w-4" /> Экспорт
                     </Button>
                   )}
                   
                   <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
-                      <Button className="bg-green-600 text-white rounded-full hover:bg-green-700">
-                        Новая запись
+                      <Button className="bg-green-600 text-white rounded-full hover:bg-green-700 flex items-center gap-1">
+                        <Plus className="h-5 w-5" /> Новая запись
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[600px] bg-white/95 backdrop-blur-sm max-h-[90vh] overflow-y-auto">
@@ -920,16 +921,16 @@ export default function LogbookPage() {
                       type="button" 
                       variant="outline" 
                       onClick={() => setIsDialogOpen(false)}
-                      className="w-full rounded-full sm:w-auto"
+                      className="w-full rounded-full sm:w-auto flex items-center justify-center gap-1"
                     >
-                      Отмена
+                      <X className="h-4 w-4" /> Отмена
                     </Button>
                     <Button 
                       type="submit" 
                       disabled={isSubmitting} 
-                      className="bg-green-600 text-white rounded-full hover:bg-green-700 sm:ml-auto"
+                      className="bg-green-600 text-white rounded-full hover:bg-green-700 sm:ml-auto flex items-center justify-center gap-1"
                     >
-                      {isSubmitting ? 'Сохранение...' : 'Сохранить'}
+                      <Check className="h-4 w-4" /> {isSubmitting ? 'Сохранение...' : 'Сохранить'}
                     </Button>
                       </DialogFooter>
                       </form>

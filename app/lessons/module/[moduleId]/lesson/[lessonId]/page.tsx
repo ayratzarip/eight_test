@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import QuizComponent from '@/components/quiz/quiz';
 import { CheckCircle } from 'lucide-react';
+import { use } from 'react';
 
 type Lesson = {
   id: string;
@@ -34,17 +35,22 @@ export default function LessonPage({ params }: { params: { moduleId: string; les
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [quizPassed, setQuizPassed] = useState(false);
   
+  // Unwrap params using React.use()
+  const unwrappedParams = use(params);
+  const moduleId = unwrappedParams.moduleId;
+  const lessonId = unwrappedParams.lessonId;
+  
   // Redirect to login if not authenticated
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.push(`/auth/signin?callbackUrl=/lessons/module/${params.moduleId}/lesson/${params.lessonId}`);
+      router.push(`/auth/signin?callbackUrl=/lessons/module/${moduleId}/lesson/${lessonId}`);
     }
-  }, [status, router, params.moduleId, params.lessonId]);
+  }, [status, router, moduleId, lessonId]);
 
   useEffect(() => {
     const fetchLesson = async () => {
       try {
-        const response = await fetch(`/api/lessons/${params.lessonId}`);
+        const response = await fetch(`/api/lessons/${lessonId}`);
         
         if (!response.ok) {
           const errorData = await response.json();
@@ -70,7 +76,7 @@ export default function LessonPage({ params }: { params: { moduleId: string; les
     };
 
     fetchLesson();
-  }, [params.lessonId]);
+  }, [lessonId]);
 
   if (isLoading) {
     return (
