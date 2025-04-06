@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { TriangleAlert } from "lucide-react";
 
@@ -16,9 +17,11 @@ export default function Article1() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
               <Link href="/" className="flex items-center space-x-2">
-                <img
+                <Image
                   src="/assets/diamond_logo_green.png"
                   alt="Logo"
+                  width={40}
+                  height={40}
                   style={{ width: "10%", height: "auto" }}
                 />
                 <span className="text-gray-600 font-bold">
@@ -43,11 +46,14 @@ export default function Article1() {
           <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
             {/* Article Header */}
             <div className="mb-8">
-              <img
+              <Image
                 src="/assets/autis.png"
                 alt="Застенчивость, расстройство личности, социальная тревога или расстройство аутистического спектра"
+                width={1200}
+                height={630}
                 className="w-full h-64 md:h-96 object-cover rounded-lg mb-6"
-                style={{ objectPosition: '50% 30%' }}
+
+                priority
               />
               
             </div>
@@ -89,7 +95,8 @@ export default function Article1() {
               </p>
               <p className="text-gray-600 text-lg mb-6 text-justify">
                 <strong>Застенчивость &ndash; </strong>
-                <em>понятие расплывчатое </em>[1]. Так начинает книгу Филипп
+                <em>понятие расплывчатое </em>
+                <a href="#ref1" className="text-green-600 hover:underline">[1]</a>. Так начинает книгу Филипп
                 Зимбардо, которого считают главным авторитетом по застенчивости.
                 Дальше он приводит цитаты из толковых словарей и предлагает нам
                 самим понять, что это значит. И если нет чёткого определения, то
@@ -103,7 +110,7 @@ export default function Article1() {
                   поражения головного мозга либо других психических нарушений.
                   Эти расстройства охватывают несколько сфер личности
                 </em>{" "}
-                [2]. В МКБ-10 выделяли несколько видов расстройств личности,
+                <a href="#ref2" className="text-green-600 hover:underline">[2]</a>. В МКБ-10 выделяли несколько видов расстройств личности,
                 например, шизоидное, тревожное.
               </p>
               <p className="text-gray-600 text-lg mb-6 text-justify">
@@ -116,7 +123,7 @@ export default function Article1() {
                   мере нескольких месяцев и являются достаточно тяжёлыми, чтобы
                   вызвать выраженный дистресс
                 </em>{" "}
-                [3].
+                <a href="#ref3" className="text-green-600 hover:underline">[3]</a>.
               </p>
               <p className="text-gray-600 text-lg mb-6 text-justify">
                 <strong>Расстройство аутистического спектра</strong> &ndash;{" "}
@@ -129,7 +136,7 @@ export default function Article1() {
                   Плюс ограниченные и повторяющиеся негибкие паттерны поведения,
                   интересы или занятия{" "}
                 </em>
-                [3]. РАС &ndash; это спектр расстройств от лёгких до тяжёлых.
+                <a href="#ref3" className="text-green-600 hover:underline">[3]</a>. РАС &ndash; это спектр расстройств от лёгких до тяжёлых.
               </p>
               <h3 className="font-bold mb-4">
                 <strong>Что происходит в мозге</strong>
@@ -146,11 +153,11 @@ export default function Article1() {
                 частности страха. В то же время снижается активность в
                 орбитофронтальной коре. При предъявлении
                 &laquo;счастливых&raquo; или нейтральных стимулов миндалевидное
-                тело уменьшает активность, хотя должно было бы возбуждаться [4,
-                5]. Изменяется не только функция, но и структура мозга:
+                тело уменьшает активность, хотя должно было бы возбуждаться <a href="#ref4" className="text-green-600 hover:underline">[4]</a>, 
+                <a href="#ref5" className="text-green-600 hover:underline">[5]</a>. Изменяется не только функция, но и структура мозга:
                 увеличивается миндалевидное тело, выявляется меньший объем
                 серого вещества в правом чечевицеобразном ядре и медиальной
-                лобной извилине [6].
+                лобной извилине <a href="#ref6" className="text-green-600 hover:underline">[6]</a>.
               </p>
               <p className="text-gray-600 text-lg mb-6 text-justify">
                 Люди с расстройством аутистического спектра неправильно
@@ -158,8 +165,9 @@ export default function Article1() {
                 активируется миндалевидное тело и височная доля, а у людей с РАС
                 &ndash; миндалевидное тело и вентромедиальная префронтальная
                 кора.&nbsp;Иначе говоря, они осознают лица, но не подключают
-                собственные эмоции [7].
+                собственные эмоции <a href="#ref7" className="text-green-600 hover:underline">[7]</a>.
               </p>
+              
               <h2 className="font-bold mb-4">
                 <strong>Что в реальности</strong>
               </h2>
@@ -177,8 +185,14 @@ export default function Article1() {
               <p className="text-gray-600 text-lg mb-6 text-justify">
                 В советской психиатрии была такая линия:
               </p>
-              <p>
-                <img src="../assets/psycho_line.png" alt="" />
+              <p className="my-4">
+                <Image 
+                  src="/assets/psycho_line.png" 
+                  alt="Линия разграничения нормы и патологии в советской психиатрии" 
+                  width={800}
+                  height={150}
+                  className="w-full"
+                />
               </p>
               <p className="text-gray-600 text-lg mb-6 text-justify">
                 Сейчас это называют <em>расстройство личности</em>, а граница
@@ -209,11 +223,12 @@ export default function Article1() {
               <p className="text-gray-600 text-lg mb-6 text-justify">
                 Некоторые аутичные люди обучились скрывать свои особенности: они
                 создали набор действий, который называется маскировкой или
-                камуфляжем [8]. Никто из окружающих не сможет заподозрить, что у
+                камуфляжем <a href="#ref8" className="text-green-600 hover:underline">[8]</a>. Никто из окружающих не сможет заподозрить, что у
                 них &laquo;нарушена обработка сенсорной информации&raquo;. Это
                 ещё более размывает границу между &laquo;нормальными&raquo; и
                 &laquo;ненормальными людьми&raquo;.
               </p>
+              
               <h3 className="font-bold mb-4">
                 <strong>Коморбидность, или сочетание расстройств</strong>
               </h3>
@@ -221,7 +236,7 @@ export default function Article1() {
                 Страдающий аутизмом может тревожиться. Он может испытывать
                 панику в социальных ситуациях. Одна проблема не исключает
                 другую. Исследователи находят значительное совпадение
-                симптоматики между СТР и РАС, с частотой от 13% до 50% [9, 10].
+                симптоматики между СТР и РАС, с частотой от 13% до 50% <a href="#ref9" className="text-green-600 hover:underline">[9]</a>, <a href="#ref10" className="text-green-600 hover:underline">[10]</a>.
                 Это чаще, чем простое совпадение.
               </p>
               <p className="text-gray-600 text-lg mb-6 text-justify">
@@ -241,14 +256,14 @@ export default function Article1() {
               <p className="text-gray-600 text-lg mb-6 text-justify">
                 То, что находят в мозге у пациентов с социальной тревогой
                 находят и у людей с другими видами тревоги. Эти явления
-                неспецифичны [4]. Это похоже на то, как растут мышцы у
+                неспецифичны <a href="#ref4" className="text-green-600 hover:underline">[4]</a>. Это похоже на то, как растут мышцы у
                 бодибилдера: чем больше качается, тем больше мышцы. Так же чем
                 больше человек тревожится, тем больше становится миндалевидное
                 тело. Миндалевидное тело у разных людей изменяется по-разному.
                 Поэтому, невозможно поставить диагноз с помощью МРТ или
                 функционального МРТ. Нельзя сказать: у этого увеличена
                 миндалина, значит у него &ndash; социальная тревога, а у второго
-                &ndash; мозг аутиста [11].
+                &ndash; мозг аутиста <a href="#ref11" className="text-green-600 hover:underline">[11]</a>.
               </p>
 
               <h2 className="font-bold mb-4">
@@ -296,9 +311,9 @@ export default function Article1() {
                 когнитивно-поведенческой терапии (КПТ). КПТ специалисты
                 применяют экспозицию &ndash; погружение в тревожную ситуацию,
                 работу с иррациональными мыслями, майндфуллнесс &ndash;
-                тренировки присутствия в настоящем моменте [12, 13]. КПТ
+                тренировки присутствия в настоящем моменте <a href="#ref12" className="text-green-600 hover:underline">[12]</a>, <a href="#ref13" className="text-green-600 hover:underline">[13]</a>. КПТ
                 считается &laquo;золотым стандартом&raquo;, это подтверждают
-                многие исследования [14].
+                многие исследования <a href="#ref14" className="text-green-600 hover:underline">[14]</a>.
               </p>
               <p className="text-gray-600 text-lg mb-6 text-justify">
                 С пациентами с расстройствами аутистического спектра работают
@@ -306,7 +321,7 @@ export default function Article1() {
                 техники. То есть, под каждый конкретный случай подбираются
                 индивидуальные программы обучения. Людей с РАС направляют
                 изучать социальные, коммуникативные и языковые навыки. Обучают
-                контролировать собственное поведение [15, 16].
+                контролировать собственное поведение <a href="#ref15" className="text-green-600 hover:underline">[15]</a>, <a href="#ref16" className="text-green-600 hover:underline">[16]</a>.
               </p>
               <p className="text-gray-600 text-lg mb-6 text-justify">
                 Не буду описывать, что предлагают людям с застенчивостью.
@@ -366,88 +381,80 @@ export default function Article1() {
                 <h3 className="font-bold mb-4">
                   <strong>Ссылки на использованные источники:</strong>
                 </h3>
-                <li>
+                <li id="ref1">
                   <a href="https://www.litres.ru/book/filip-zimbardo/zastenchivost-kak-ee-poborot-i-priobresti-uverennost-v-sebe-69832063/">
                     https://www.litres.ru/book/filip-zimbardo/zastenchivost-kak-ee-poborot-i-priobresti-uverennost-v-sebe-69832063/
                   </a>
                 </li>
-                <li>
+                <li id="ref2">
                   <a href="https://mkb-10.com">https://mkb-10.com</a>
                 </li>
-                <li>
+                <li id="ref3">
                   <a href="https://icd.who.int/browse/2025-01/mms/ru">
                     https://icd.who.int/browse/2025-01/mms/ru
                   </a>
                 </li>
-                <li>
+                <li id="ref4">
                   <a href="https://pubmed.ncbi.nlm.nih.gov/21215728/">
                     https://pubmed.ncbi.nlm.nih.gov/21215728/
                   </a>
                 </li>
-                <li>
+                <li id="ref5">
                   <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5063696/">
                     https://pmc.ncbi.nlm.nih.gov/articles/PMC5063696/
                   </a>
                 </li>
-                <li>
+                <li id="ref6">
                   <a href="https://pubmed.ncbi.nlm.nih.gov/37725323/">
                     https://pubmed.ncbi.nlm.nih.gov/37725323/
                   </a>
                 </li>
-                <li>
+                <li id="ref7">
                   <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2834792/">
                     https://pmc.ncbi.nlm.nih.gov/articles/PMC2834792/
                   </a>
                 </li>
-                <li>
+                <li id="ref8">
                   <a href="https://www.sciencedirect.com/science/article/pii/S0732118X22000629">
                     https://www.sciencedirect.com/science/article/pii/S0732118X22000629
                   </a>
                 </li>
-                <li>
-                  <u>
-                    <a href="https://pubmed.ncbi.nlm.nih.gov/38002519/">
-                      https://pubmed.ncbi.nlm.nih.gov/38002519/
-                    </a>
-                    )(
-                  </u>
-                  <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10669824/">
-                    https://pmc.ncbi.nlm.nih.gov/articles/PMC10669824/
+                <li id="ref9">
+                  <a href="https://pubmed.ncbi.nlm.nih.gov/38002519/">
+                    https://pubmed.ncbi.nlm.nih.gov/38002519/
                   </a>
                 </li>
-                <li>
-                  <u>
-                    <a href="https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2023.1320558/full">
-                      https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2023.1320558/full
-                    </a>
-                  </u>
+                <li id="ref10">
+                  <a href="https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2023.1320558/full">
+                    https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2023.1320558/full
+                  </a>
                 </li>
-                <li>
+                <li id="ref11">
                   <a href="https://pubmed.ncbi.nlm.nih.gov/34420058/">
                     https://pubmed.ncbi.nlm.nih.gov/34420058/
                   </a>
                 </li>
-                <li>
+                <li id="ref12">
                   <a href="https://psychiatr.ru/download/4239?view=1&amp;name=%D0%9A%D0%A0%D0%97_%D0%A2%D1%80%D0%B5%D0%B2%D0%BE%D0%B6%D0%BD%D0%BE-%D1%84%D0%BF%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5+%D1%80%D0%B0%D1%81%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%B0.pdf">
                     https://psychiatr.ru/download/4239?view=1&amp;name=КРЗ_Тревожно-фобические+расстройства.pdf
                   </a>
                 </li>
-                <li>
+                <li id="ref13">
                   <a href="https://www.nimh.nih.gov/health/publications/social-anxiety-disorder-more-than-just-shyness">
                     https://www.nimh.nih.gov/health/publications/social-anxiety-disorder-more-than-just-shyness
                   </a>
                 </li>
-                <li>
+                <li id="ref14">
                   <a href="https://pubmed.ncbi.nlm.nih.gov/33895444/">
                     https://pubmed.ncbi.nlm.nih.gov/33895444/
                   </a>
                 </li>
-                <li>
+                <li id="ref15">
                   <a href="https://www.pediatr-russia.ru/information/klin-rek/proekty-klinicheskikh-rekomendatsiy/%D0%9A%D0%A0%20%D0%A0%D0%90%D0%A1_2022_%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%BC%D0%BE%D1%82%D1%80.pdf?ysclid=m0gnb0tj41420780910">
                     https://www.pediatr-russia.ru/information/klin-rek/proekty-klinicheskikh-rekomendatsiy/КР%20РАС_2022_пересмотр.pdf?ysclid=m0gnb0tj41420780910
                   </a>
                 </li>
-                <li>
+                <li id="ref16">
                   <a href="https://www.nimh.nih.gov/health/publications/autism-spectrum-disorder">
                     https://www.nimh.nih.gov/health/publications/autism-spectrum-disorder
                   </a>
