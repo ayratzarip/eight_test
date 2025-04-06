@@ -33,14 +33,16 @@ export default function Article2() {
             {/* Article Header */}
             <div className="mb-8">
               <img 
-                src="/assets/autis.png" 
+                src="/assets/diagnose.png" 
                 alt="Социальная тревога, застенчивость или расстройство аутистического спектра" 
                 className="w-full h-64 md:h-96 object-cover rounded-lg mb-6" 
               />
-              <h1 className="text-3xl font-bold mb-4">Социальная тревога, застенчивость или расстройство аутистического спектра</h1>
+              <h1 className="text-3xl font-bold mb-4">Просто застенчивость или социальная тревога, или расстройство аутистического спектра?</h1>
               <p className="text-gray-600 text-lg mb-6 border-b pb-6">
-                Here's a description of the second article. It highlights the key points and main ideas that will be explored in the full article. The content is relevant and valuable.
+              В теории это абсолютно разные состояния, но на практике все не так однозначно и просто. Когда сложности в социальных ситуациях возникают у интеллектуальных и образованных взрослых людей, сложно выделить единственную причину проблемы. В статье предлагается прагматичный подход к подобным ситуациям.
               </p>
+              <p>Дисклеймер: выводы и предложения этой статьи относятся к взрослым людям с достаточным уровнем интеллекта без грубой социальной дезадаптации. Автор не имеет опыта работы с детьми.
+                </p>            
             </div>
             
             {/* Article Content */}

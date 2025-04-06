@@ -25,7 +25,7 @@ type Lesson = {
   };
 };
 
-export default function LessonPage({ params }: { params: { moduleId: string; lessonId: string } }) {
+export default function LessonPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [lesson, setLesson] = useState<Lesson | null>(null);
@@ -35,10 +35,19 @@ export default function LessonPage({ params }: { params: { moduleId: string; les
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [quizPassed, setQuizPassed] = useState(false);
   
-  // Unwrap params using React.use()
-  const unwrappedParams = use(params);
-  const moduleId = unwrappedParams.moduleId;
-  const lessonId = unwrappedParams.lessonId;
+  // Get params from URL
+  const [moduleId, setModuleId] = useState('');
+  const [lessonId, setLessonId] = useState('');
+
+  useEffect(() => {
+    // Extract IDs from the URL
+    const path = window.location.pathname;
+    const matches = path.match(/\/module\/([^\/]+)\/lesson\/([^\/]+)/);
+    if (matches) {
+      setModuleId(matches[1]);
+      setLessonId(matches[2]);
+    }
+  }, []);
   
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -49,8 +58,10 @@ export default function LessonPage({ params }: { params: { moduleId: string; les
 
   useEffect(() => {
     const fetchLesson = async () => {
+      if (!lessonId) return; // Don't fetch if lessonId is not available yet
+      
       try {
-        const response = await fetch(`/api/lessons/${lessonId}`);
+        const response = await fetch(`/api/lessons/${lessonId}?id=${lessonId}`);
         
         if (!response.ok) {
           const errorData = await response.json();

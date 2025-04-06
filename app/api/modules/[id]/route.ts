@@ -3,11 +3,18 @@ import { prisma } from '@/lib/db';
 
 // GET handler to fetch a specific module with its lessons
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: Request
 ) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
+  if (!id) {
+    return NextResponse.json(
+      { error: 'Module ID is required' },
+      { status: 400 }
+    );
+  }
   try {
-    const moduleId = params.id;
+    const moduleId = id;
 
     // Fetch the module and include its related lessons
     const module = await prisma.module.findUnique({

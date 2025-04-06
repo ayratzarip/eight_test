@@ -21,6 +21,7 @@ type LogEntry = {
   id: string;
   userId: string;
   dateTime: string;
+  situation: string;
   attentionFocus: string;
   thoughts: string;
   bodySensations: string;
@@ -38,6 +39,7 @@ export default function LogbookPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newEntry, setNewEntry] = useState({
+    situation: '',
     attentionFocus: '',
     thoughts: '',
     bodySensations: '',
@@ -48,6 +50,7 @@ export default function LogbookPage() {
   const [encryptedUserKey, setEncryptedUserKey] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState({
+    situation: false,
     attentionFocus: false,
     thoughts: false,
     bodySensations: false,
@@ -112,6 +115,7 @@ export default function LogbookPage() {
           // Merge the decrypted data with the entry
           return {
             ...entry,
+            situation: decryptedData.situation || entry.situation || '',
             attentionFocus: decryptedData.attentionFocus || entry.attentionFocus,
             thoughts: decryptedData.thoughts || entry.thoughts,
             bodySensations: decryptedData.bodySensations || entry.bodySensations,
@@ -464,10 +468,11 @@ export default function LogbookPage() {
     e.preventDefault();
     
     // Validate all fields are filled
-    const { attentionFocus, thoughts, bodySensations, actions, howToAct } = newEntry;
+    const { situation, attentionFocus, thoughts, bodySensations, actions, howToAct } = newEntry;
     
     // Reset error states
     const newErrors = {
+      situation: false,
       attentionFocus: false,
       thoughts: false,
       bodySensations: false,
@@ -477,6 +482,11 @@ export default function LogbookPage() {
     
     // Check each field and set error state if empty
     let hasErrors = false;
+    
+    if (!situation) {
+      newErrors.situation = true;
+      hasErrors = true;
+    }
     
     if (!attentionFocus) {
       newErrors.attentionFocus = true;
@@ -559,6 +569,7 @@ export default function LogbookPage() {
       
       // Reset the form and close the dialog
       setNewEntry({
+        situation: '',
         attentionFocus: '',
         thoughts: '',
         bodySensations: '',
@@ -576,6 +587,7 @@ export default function LogbookPage() {
       setBodySensationIntensity(0);
       setCustomBodySensations('');
       setFormErrors({
+        situation: false,
         attentionFocus: false,
         thoughts: false,
         bodySensations: false,
@@ -601,7 +613,8 @@ export default function LogbookPage() {
   const handleExportToCSV = () => {
     // CSV header row
     const csvHeader = [
-      'Дата и время', 
+      'Дата и время',
+      'Ситуация',
       'Фокус внимания', 
       'Мысли', 
       'Телесные ощущения', 
@@ -624,6 +637,7 @@ export default function LogbookPage() {
       // Get values from the current entry (they're already decrypted in the state)
       return [
         escapeCsvValue(formattedDate),
+        escapeCsvValue(entry.situation || ''),
         escapeCsvValue(entry.attentionFocus),
         escapeCsvValue(entry.thoughts),
         escapeCsvValue(entry.bodySensations),
@@ -739,6 +753,18 @@ export default function LogbookPage() {
                       </DialogHeader>
                       
                       <form onSubmit={handleSubmit} className="space-y-4 mt-4 pb-4">
+                  <div className="space-y-2">
+                    <label htmlFor="situation" className="font-medium">Ситуация</label>
+                    <Input
+                      id="situation"
+                      name="situation"
+                      value={newEntry.situation}
+                      onChange={handleInputChange}
+                      placeholder="Что? Где? С кем?"
+                      className={`placeholder:text-gray-400 text-black ${formErrors.situation ? "border-red-500" : "border-input"}`}
+                    />
+                  </div>
+                  
                   <div className="space-y-2">
                     <label htmlFor="attentionFocus" className="font-medium">Фокус внимания</label>
                     <div className={`p-4 border rounded-md space-y-2 ${formErrors.attentionFocus ? "border-red-500" : "border-input"}`}>
@@ -955,6 +981,7 @@ export default function LogbookPage() {
                     <TableHeader>
                       <TableRow>
                         <TableHead className="w-36 whitespace-nowrap">Дата и время</TableHead>
+                        <TableHead className="whitespace-nowrap">Ситуация</TableHead>
                         <TableHead className="whitespace-nowrap">Фокус внимания</TableHead>
                         <TableHead className="whitespace-nowrap">Мысли</TableHead>
                         <TableHead className="whitespace-nowrap">Телесные ощущения</TableHead>
@@ -970,6 +997,7 @@ export default function LogbookPage() {
                           onClick={() => isEditMode && toggleEntrySelection(entry.id)}
                         >
                           <TableCell className="font-medium whitespace-nowrap">{formatDate(entry.dateTime)}</TableCell>
+                          <TableCell className="max-w-[150px] truncate group-hover:whitespace-normal group-hover:overflow-visible">{entry.situation}</TableCell>
                           <TableCell className="max-w-[150px] truncate group-hover:whitespace-normal group-hover:overflow-visible">{entry.attentionFocus}</TableCell>
                           <TableCell className="max-w-[150px] truncate group-hover:whitespace-normal group-hover:overflow-visible">{entry.thoughts}</TableCell>
                           <TableCell className="max-w-[150px] truncate group-hover:whitespace-normal group-hover:overflow-visible">{entry.bodySensations}</TableCell>
@@ -993,6 +1021,11 @@ export default function LogbookPage() {
                     <div className="font-medium text-green-600 mb-3">{formatDate(entry.dateTime)}</div>
                     
                     <div className="space-y-3">
+                      <div>
+                        <div className="text-sm font-medium text-gray-500">Ситуация</div>
+                        <div className="mt-1">{entry.situation}</div>
+                      </div>
+                      
                       <div>
                         <div className="text-sm font-medium text-gray-500">Фокус внимания</div>
                         <div className="mt-1">{entry.attentionFocus}</div>

@@ -1,13 +1,20 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 // GET handler to fetch a quiz for a specific lesson
 export async function GET(
-  request: Request,
-  { params }: { params: { lessonId: string } }
+  request: Request
 ) {
+  const { searchParams } = new URL(request.url);
+  const lessonId = searchParams.get('lessonId');
+  if (!lessonId) {
+    return NextResponse.json(
+      { error: 'Lesson ID is required' },
+      { status: 400 }
+    );
+  }
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
@@ -19,7 +26,7 @@ export async function GET(
       );
     }
     
-    const lessonId = params.lessonId;
+    // lessonId is already defined from the search params
 
     // First check if a quiz exists for this lesson
     const quiz = await prisma.quiz.findUnique({

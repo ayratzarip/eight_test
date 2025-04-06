@@ -79,7 +79,7 @@ export default function Home() {
         {/* Hero Section */}
         <section 
           id="about"
-          className="relative min-h-[90vh] flex items-center pt-16"
+          className="relative min-h-[95vh] flex items-center pt-16"
           style={{
             backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/assets/party.png)',
             backgroundSize: 'cover',
@@ -87,39 +87,24 @@ export default function Home() {
           }}
         >
           <div className="container mx-auto px-4 py-16 md:py-24">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                Превратить застенчивость в уверенность
-              </h1>
-              <p className="text-xl text-gray-200 mb-8">
-                Чтобы победить застенчивость нужно пойти к психотерапевту.
-                Чтобы пойти к психотерапевту нужно победить застенчивость.
+            <div className="max-w-5xl mx-auto text-center">
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+              EightFaces:</h1>
+              <p className="text-3xl text-gray-200 mb-8">
+              онлайн-тренажер для улучшения социальных навыков
               </p>
-              <div className="flex flex-wrap gap-4 justify-center text-gray-200">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5" />
-                  <span>Expert-led Training</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5" />
-                  <span>Practical Exercises</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5" />
-                  <span>Lifetime Access</span>
-                </div>
-              </div>
+
             </div>
           </div>
         </section>
 
         {/* Pre-Video Introduction */}
-        <section className="bg-white py-16">
+        <section className="bg-white py-32">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-6">Your Journey to Social Mastery</h2>
+              <h2 className="text-3xl font-bold mb-6">Превратить застенчивость в уверенность</h2>
               <p className="text-gray-600 mb-8">
-                Social anxiety and shyness can hold back even the most talented professionals. Our program, developed by leading psychotherapists, combines cognitive behavioral techniques with real-world scenarios tailored for the tech industry. Watch our introduction videos to learn how we can help you overcome these challenges and unlock your full potential.
+              Чтобы победить застенчивость нужно пойти к психотерапевту, чтобы пойти к психотерапевту нужно победить застенчивость. 
               </p>
             </div>
           </div>
@@ -128,7 +113,7 @@ export default function Home() {
         {/* Video Section */}
         <section 
           id="videos"
-          className="py-16"
+          className="py-32"
           style={{
             backgroundImage: 'linear-gradient(rgba(243, 244, 246, 0.8), rgba(243, 244, 246, 0.8)), url(/assets/speaking.png)',
             backgroundSize: 'cover',
@@ -176,15 +161,10 @@ export default function Home() {
             </div>
           </div>
         </section>
+     
 
         {/* Post-Video Content */}
-        <section className="bg-white py-16" 
-                  style={{
-                    backgroundImage: 'linear-gradient(rgba(243, 244, 246, 0.8), rgba(243, 244, 246, 0.8)), url(/assets/speaking.png)',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundAttachment: 'fixed'
-                  }}>
+        <section className="bg-white py-16">
           
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
@@ -212,7 +192,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Video Section - 2 */}
+        {/* Video Section - 4 */}
         <section 
           id="videos_2"
           className="py-16"
@@ -267,14 +247,7 @@ export default function Home() {
         {/* Features Section */}
         <section 
           id="features"
-          className="py-16"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(/assets/employees.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: 'fixed'
-          }}
-        >
+          className="py-16">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold text-center mb-12">Why Choose Our Program?</h2>
@@ -361,7 +334,7 @@ export default function Home() {
               </button>
               <div className="flex items-center justify-center gap-2 mt-4 text-gray-400 text-sm">
                 <Shield className="w-4 h-4" />
-                <span>Ваши данные защищены</span>
+                <span>Мы используем сквозное шифрование. Ваши данные защищены</span>
               </div>
             </div>
           </div>

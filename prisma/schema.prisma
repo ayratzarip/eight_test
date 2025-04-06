@@ -137,6 +137,9 @@ model Logbook {
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   dateTime        DateTime @default(now())
   
+  // No need to add "situation" here since we're using encryption
+  // All encrypted fields are stored in encryptedData
+  
   // Encrypted content only
   encryptedData   String
   iv              String

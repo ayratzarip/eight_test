@@ -69,7 +69,7 @@ export default function QuizComponent({ lessonId, onComplete }: QuizProps) {
     const fetchQuiz = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/api/quizzes/${lessonId}`);
+        const response = await fetch(`/api/quizzes/${lessonId}?lessonId=${lessonId}`);
         const data = await response.json();
 
         if (!response.ok) {
