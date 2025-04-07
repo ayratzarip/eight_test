@@ -677,10 +677,10 @@ export default function LogbookPage() {
 
   if (status === 'loading' || isLoading) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-100">
+      <div className="min-h-screen flex flex-col bg-gray-50">
         <Header />
-        <main className="flex-grow pt-20">
-          <div className="container mx-auto px-4 py-8">
+        <main className="flex-grow pt-16">
+          <div className="container mx-auto px-4 py-4">
             <div className="text-center py-12">
               <p>Загрузка...</p>
             </div>
@@ -691,11 +691,10 @@ export default function LogbookPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
-    
+    <div className="min-h-screen flex flex-col bg-gray-50">
       
-      <main className="flex-grow pt-20">
-        <div className="container mx-auto px-4 py-8">
+      <main className="flex-grow pt-16">
+        <div className="container mx-auto px-4 py-4">
           <div className="mb-8">
             <h1 className="text-3xl font-bold mb-4">Дневник наблюдений</h1>
             
@@ -968,14 +967,14 @@ export default function LogbookPage() {
           </div>
           
           {entries.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-sm p-6 text-center">
+            <div className="bg-white rounded-xl shadow-2xl p-6 text-center">
               <p className="text-gray-500">У вас пока нет записей в дневнике наблюдений.</p>
               <p className="text-gray-500 mt-2">Нажмите &quot;Новая запись&quot;, чтобы создать первую запись.</p>
             </div>
           ) : (
             <>
               {/* Desktop Table View */}
-              <div className="bg-white rounded-xl shadow-sm overflow-hidden hidden md:block">
+              <div className="bg-white rounded-xl shadow-2xl overflow-hidden hidden md:block">
                 <div className="overflow-x-auto">
                   <Table>
                     <TableHeader>

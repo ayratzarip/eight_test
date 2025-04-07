@@ -10,7 +10,7 @@ export default function Terms() {
           На главную страницу
         </Link>
         
-        <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-sm p-8">
+        <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-2xl p-8">
           <h4 className="mbr-section-subtitle mbr-fonts-style mb-4 display-3" style={{ textAlign: 'center' }}>
             <strong>Пользовательское соглашение</strong>
           </h4>

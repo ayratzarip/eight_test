@@ -7,7 +7,7 @@ export default function Sitemap() {
   return (
     <div className="flex-grow pt-20 bg-gray-100">
       <div className="container mx-auto px-4 py-8">
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <div className="bg-white rounded-xl sshadow-2xl p-8 mb-8">
           <div className="flex items-start mb-8">
             <Link href="/" className="inline-flex items-center gap-2 text-green-600 hover:text-green-700">
               <ArrowLeft className="w-5 h-5" />

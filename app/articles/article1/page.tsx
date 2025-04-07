@@ -43,7 +43,7 @@ export default function Article1() {
       {/* Main Content */}
       <main className="flex-grow pt-20 bg-gray-100">
         <div className="container mx-auto px-4 py-8">
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+          <div className="bg-white rounded-xl shadow-2xl p-8 mb-8">
             {/* Article Header */}
             <div className="mb-8">
               <Image

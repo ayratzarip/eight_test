@@ -36,9 +36,9 @@ export default function Articles() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow pt-20 bg-gray-100">
-        <div className="container mx-auto px-4 py-8">
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+      <main className="flex-grow pt-16 bg-gray-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="bg-white rounded-xl shadow-2xl p-8 mb-8">
             {/* Article 4 (now first) */}
             <div className="border-b pb-8 mb-8 last:border-0 last:mb-0 last:pb-0">
               <div className="md:flex">

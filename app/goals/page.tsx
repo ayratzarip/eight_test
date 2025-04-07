@@ -87,7 +87,7 @@ function SortableGoalItem({
     <div
       ref={setNodeRef}
       style={style}
-      className={`bg-white rounded-xl shadow-sm overflow-hidden transition-all ${
+      className={`bg-white rounded-xl shadow-2xl overflow-hidden transition-all ${
         goal.isCompleted ? "opacity-70" : "opacity-100"
       } ${isEditMode ? "hover:shadow-md hover:border-blue-200 hover:border" : ""} 
         ${index === 0 && !goal.isCompleted ? "border-l-4 border-green-500" : ""}
@@ -625,10 +625,10 @@ export default function GoalsPage() {
 
   if (status === 'loading' || isLoading) {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-100">
+      <div className="min-h-screen flex flex-col bg-gray-50">
         <Header />
-        <main className="flex-grow pt-20">
-          <div className="container mx-auto px-4 py-8">
+        <main className="flex-grow pt-16">
+          <div className="container mx-auto px-4 py-4">
             <div className="text-center py-12">
               <p>Загрузка...</p>
             </div>
@@ -639,11 +639,10 @@ export default function GoalsPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       
-      
-      <main className="flex-grow pt-20">
-        <div className="container mx-auto px-4 py-8">
+      <main className="flex-grow pt-16">
+        <div className="container mx-auto px-4 py-4">
           <div className="mb-8">
             <h1 className="text-3xl font-bold mb-4">Мои цели</h1>
             
@@ -718,7 +717,7 @@ export default function GoalsPage() {
           )}
           
           {goals.length === 0 ? (
-            <div className="bg-white rounded-xl shadow-sm p-6 text-center">
+            <div className="bg-white rounded-xl shadow-xl p-6 text-center">
               <p className="text-gray-500">У вас пока нет целей.</p>
               <p className="text-gray-500 mt-2">Нажмите &quot;Новая цель&quot;, чтобы добавить свою первую цель.</p>
             </div>
