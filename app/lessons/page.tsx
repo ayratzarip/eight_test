@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronUp, BookOpen, CheckCircle } from 'lucide-react';
@@ -49,61 +49,8 @@ export default function Lessons() {
   const [showQuiz, setShowQuiz] = useState(false);
 
   // Fetch modules and lessons from our API
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/modules');
-        if (!response.ok) {
-          throw new Error('Failed to fetch modules');
-        }
-        const data = await response.json();
-        setModules(data);
-        setIsLoading(false);
-        
-        // Auto-expand the first module
-        if (data.length > 0) {
-          setExpandedModules([data[0].id]);
-          
-          // Auto-select the first lesson if available
-          const nextLesson = getNextLesson(data);
-          if (nextLesson) {
-            fetchLesson(nextLesson.lesson.id);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching modules:', error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // Function to fetch a specific lesson
-  const fetchLesson = async (lessonId: string) => {
-    if (!lessonId) return;
-    
-    setIsLessonLoading(true);
-    try {
-      const response = await fetch(`/api/lessons/${lessonId}?id=${lessonId}`);
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch lesson data');
-      }
-      
-      const data = await response.json();
-      setSelectedLesson(data);
-      setShowQuiz(false);
-      setActiveTab("content");
-      setIsLessonLoading(false);
-    } catch (err) {
-      console.error('Error fetching lesson:', err);
-      setIsLessonLoading(false);
-    }
-  };
-
-  // Function to get the next lesson for the user
-  const getNextLesson = (moduleData: Module[] = modules): {
+  // Function to get the next lesson for the user - без зависимости от modules
+  const getNextLesson = useCallback((moduleData: Module[]): {
     moduleTitle: string;
     moduleId: string;
     lesson: Lesson;
@@ -148,14 +95,101 @@ export default function Lessons() {
     }
     
     return null;
+  }, []);
+
+  // Эффект для загрузки модулей - запускаем только один раз
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/modules');
+        if (!response.ok) {
+          throw new Error('Failed to fetch modules');
+        }
+        const data = await response.json();
+        
+        // Устанавливаем модули
+        setModules(data);
+        setIsLoading(false);
+        
+        // Находим урок для начала только если есть данные
+        if (data && data.length > 0) {
+          const nextLesson = getNextLesson(data);
+          
+          // Auto-select the first lesson if available
+          if (nextLesson) {
+            const moduleId = nextLesson.moduleId;
+            
+            // Set expanded module
+            setExpandedModules([moduleId]);
+            
+            // Fetch the lesson - без setTimeout чтобы избежать проблем
+            fetchLesson(nextLesson.lesson.id, moduleId);
+          } else {
+            // If no lesson found, just expand the first module
+            setExpandedModules([data[0].id]);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching modules:', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Пустой массив зависимостей - выполняется только один раз при монтировании
+
+  // Function to fetch a specific lesson
+  const fetchLesson = async (lessonId: string, moduleId?: string) => {
+    if (!lessonId) return;
+    
+    // Предотвращаем повторную загрузку того же урока
+    if (selectedLesson?.id === lessonId) {
+      return;
+    }
+    
+    setIsLessonLoading(true);
+    try {
+      const response = await fetch(`/api/lessons/${lessonId}?id=${lessonId}`);
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch lesson data');
+      }
+      
+      const data = await response.json();
+      
+      // Обрабатываем данные перед обновлением состояния
+      const lessonData = {...data};
+      
+      setSelectedLesson(lessonData);
+      setShowQuiz(false);
+      setActiveTab("content");
+      
+      // Автоматически раскрываем модуль только если был передан moduleId
+      if (moduleId) {
+        setExpandedModules([moduleId]);
+      }
+      // Если moduleId не был передан, но есть в уроке - используем его
+      else if (lessonData.moduleId && !expandedModules.includes(lessonData.moduleId)) {
+        setExpandedModules([lessonData.moduleId]);
+      }
+      
+      setIsLessonLoading(false);
+    } catch (err) {
+      console.error('Error fetching lesson:', err);
+      setIsLessonLoading(false);
+    }
   };
 
   const toggleModule = (moduleId: string) => {
-    setExpandedModules(prev => 
-      prev.includes(moduleId) 
-        ? prev.filter(id => id !== moduleId) 
-        : [...prev, moduleId]
-    );
+    setExpandedModules(prev => {
+      // Если модуль уже открыт - закрываем его
+      if (prev.includes(moduleId)) {
+        return [];
+      } 
+      // Если модуль закрыт - открываем его (и только его)
+      return [moduleId];
+    });
   };
 
   return (
@@ -177,7 +211,9 @@ export default function Lessons() {
                         <div 
                           className={`cursor-pointer p-4 flex justify-between items-center 
                             ${module.isAccessible ? 'text-black font-medium' : 'text-gray-500 font-normal'}
-                            ${selectedLesson?.moduleId === module.id ? 'bg-green-50' : 'hover:bg-gray-50'}
+                            ${expandedModules.includes(module.id) ? 'bg-green-50 border-l-4 border-green-500' : 'hover:bg-gray-50'}
+                            ${selectedLesson?.moduleId === module.id ? 'font-semibold' : ''}
+                            transition-all duration-150
                           `}
                           onClick={() => toggleModule(module.id)}
                         >
@@ -197,7 +233,7 @@ export default function Lessons() {
                                 <li key={lesson.id}>
                                   {lesson.isAccessible ? (
                                     <div 
-                                      onClick={() => fetchLesson(lesson.id)}
+                                      onClick={() => fetchLesson(lesson.id, module.id)}
                                       className={`p-3 pl-6 text-sm flex items-center gap-2 cursor-pointer
                                         ${selectedLesson?.id === lesson.id ? 
                                           'bg-green-100 text-green-700 font-medium' : 
@@ -279,8 +315,8 @@ export default function Lessons() {
                               className="prose max-w-full w-full"
                               dangerouslySetInnerHTML={{ __html: selectedLesson.content }}
                             />
-                            <div className="mt-8 p-4 bg-amber-50 border border-amber-200 rounded-md">
-                              <div className="flex items-center gap-2 text-amber-700">
+                            <div className="mt-8 p-4 bg-amber-50 border border-amber-300 rounded-md">
+                              <div className="flex items-center gap-2 text-amber-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                   <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
                                   <path d="M12 9v4"></path>

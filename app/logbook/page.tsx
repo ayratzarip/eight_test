@@ -678,7 +678,6 @@ export default function LogbookPage() {
   if (status === 'loading' || isLoading) {
     return (
       <div className="min-h-screen flex flex-col bg-gray-50">
-        <Header />
         <main className="flex-grow pt-16">
           <div className="container mx-auto px-4 py-4">
             <div className="text-center py-12">
