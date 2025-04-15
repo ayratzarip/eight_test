@@ -279,7 +279,7 @@ export default function Lessons() {
                 ) : selectedLesson ? (
                   <div>
                     {/* Lesson title */}
-                    <h1 className="text-2xl font-bold mb-4">{selectedLesson.title}</h1>
+                    <h1 className="text-3xl font-bold mb-4">{selectedLesson.title}</h1>
                     
                     {/* Video section */}
                     <div className="mb-6">
