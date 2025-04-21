@@ -77,7 +77,7 @@ export default function Articles() {
               <div className="md:flex">
                 <div className="md:w-1/3">
                   <Image
-                    src="/assets/chutzpah.png"
+                    src="/assets/rope.png"
                     alt="Article 3"
                     width={800}
                     height={400}
@@ -86,12 +86,13 @@ export default function Articles() {
                 </div>
                 <div className="p-6 md:w-2/3">
                   <h3 className="text-2xl font-bold mb-3">
-                    Уверенность в себе и хуцпа
+                    Уверенности и харизмы не существует
                   </h3>
                   <p className="text-gray-600 mb-4">
-                    The third article description provides a glimpse into the
-                    content and insights that readers will gain. Its designed to
-                    pique interest and encourage further reading.
+                    В статье описано, как особенности мышления мешают
+                    избавляться от застенчивости и неуверенности в себе.
+                    Обязательно прочитайте, если участвуете в проекте
+                    EightFaces. Если нет, то не тратьте время.
                   </p>
                   <Link href="/articles/article3">
                     <button className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors">
