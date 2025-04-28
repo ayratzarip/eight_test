@@ -47,7 +47,7 @@ export default function Articles() {
               <div className="md:flex">
                 <div className="md:w-1/3">
                   <Image
-                    src="/assets/emotional.png"
+                    src="/assets/guilford.png"
                     alt="Article 4"
                     width={800}
                     height={400}
@@ -56,12 +56,12 @@ export default function Articles() {
                 </div>
                 <div className="p-6 md:w-2/3">
                   <h3 className="text-2xl font-bold mb-3">
-                    Социальный интеллект или эмоциональный интеллект
+                    Что сделать, чтобы добиться успеха
                   </h3>
                   <p className="text-gray-600 mb-4">
-                    This description for the fourth article summarizes the key
-                    themes and takeaways. It gives readers a reason to click and
-                    read the complete article for more detailed information.
+                    Почему одни люди добиваются успеха, другие – нет? Чтобы
+                    ответить на этот вопрос учёные придумали несколько теорий,
+                    лишь некоторые из них можно применить на практике.
                   </p>
                   <Link href="/articles/article4">
                     <button className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors">
@@ -89,7 +89,7 @@ export default function Articles() {
                     Уверенности и харизмы не существует
                   </h3>
                   <p className="text-gray-600 mb-4">
-                    В статье описано, как особенности мышления мешают
+                    Как особенности мышления мешают
                     избавляться от застенчивости и неуверенности в себе.
                     Обязательно прочитайте, если участвуете в проекте
                     EightFaces. Если нет, то не тратьте время.
