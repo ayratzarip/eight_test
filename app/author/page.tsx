@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from "lucide-react";
 
 export default function Author() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,7 +33,8 @@ export default function Author() {
               href="/"
               className="inline-flex items-center gap-2 text-green-600 hover:text-green-700"
             >
-              <ArrowLeft className="w-5 h-5" />На главную страницу
+              <ArrowLeft className="w-5 h-5" />
+              На главную страницу
             </Link>
           </div>
         </div>
@@ -41,95 +42,118 @@ export default function Author() {
 
       {/* Main Content */}
       <main className="flex-grow pt-20 bg-gray-100">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 ">
           <div className="bg-white rounded-xl shadow-2xl p-8 mb-8">
             {/* Author Header */}
-            <div className="mb-8 md:flex items-start gap-8">
-              <div className="md:w-1/3 mb-6 md:mb-0">
-                <Image 
-                  src="/assets/attention.png" 
-                  alt="Зарипов Айрат Ахмадуллович" 
-                  width={100}
-                  height={100}
-                  style={{ width: "100%", height: "auto" }} 
+            <div className="mb-8 flex flex-col md:flex-row items-center gap-8">
+              <div className="w-full md:w-1/3 mb-6 md:mb-0 md:ml-36 flex justify-center md:justify-start">
+                <Image
+                  src="/assets/author.png"
+                  alt="Зарипов Айрат Ахмадуллович"
+                  width={1000}
+                  height={1000}
+                  style={{ width: "80%", height: "auto" }}
+                  className="max-w-xs"
                 />
               </div>
-              <div className="md:w-2/3">
-                <h1 className="text-3xl font-bold mb-4">Зарипов Айрат Ахмадуллович</h1>
-                <div className="text-gray-600 mb-4">
-                  <p className="mb-2"><strong>Специальность:</strong> Психотерапевт, психиатр</p>
-                  <p className="mb-2"><strong>Стаж:</strong> 27 лет</p>
-                  <p className="mb-2"><strong>Категория:</strong> Высшая квалификационная категория</p>
-                  <p className="mb-2"><strong>Образование:</strong> Санкт-Петербургский государственный медицинский университет им. акад. И.П. Павлова</p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <a 
-                    href="https://prodoctorov.ru/spb/vrach/531477-zaripov/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors"
-                  >
-                    Отзывы на ПроДокторов
-                  </a>
+              <div className="w-full md:w-2/3 flex flex-col justify-center">
+                <div>
+                  <p className="text-gray-600 text-lg mb-6 text-center md:mr-36">
+                    Привет! Меня зовут Айрат Зарипов.
+                  </p>
+                  <p className="text-gray-600 text-lg mb-6 text-justify md:mr-36">
+                    Я помогаю справляться с внутренними барьерами: преодолевать
+                    тревогу, страхи и панику. Но преодоление &ndash; не главная
+                    цель, это средство, с помощью которого мои клиенты реализуют
+                    свои мечты и желания.
+                  </p>
                 </div>
               </div>
             </div>
-            
+
             {/* Author Content */}
-            <div className="prose prose-lg max-w-none">
-              <h2 className="text-2xl font-bold mb-4">О специалисте</h2>
-              
-              <p>
-                Айрат Ахмадуллович Зарипов — опытный психотерапевт и психиатр с 27-летним стажем работы. Специализируется на когнитивно-поведенческой терапии и помощи людям с социальной тревожностью, застенчивостью и другими проблемами в сфере коммуникации.
-              </p>
-              
-              <h2 className="text-2xl font-bold mt-8 mb-4">Профессиональный опыт</h2>
-              
-              <p>
-                За годы практики Айрат Ахмадуллович помог сотням клиентов преодолеть социальную тревогу и развить навыки эффективного общения. Его подход основан на научно доказанных методах когнитивно-поведенческой терапии, адаптированных для решения конкретных проблем в сфере социального взаимодействия.
-              </p>
-              
-              <p>
-                Особое внимание в своей работе уделяет проблемам технических специалистов, которые часто сталкиваются с трудностями в коммуникации на рабочем месте и в профессиональной среде.
-              </p>
-              
-              <h2 className="text-2xl font-bold mt-8 mb-4">Образование и квалификация</h2>
-              
-              <ul className="list-disc pl-6 mb-6">
-                <li>Санкт-Петербургский государственный медицинский университет им. акад. И.П. Павлова</li>
-                <li>Специализация по психиатрии и психотерапии</li>
-                <li>Высшая квалификационная категория</li>
-                <li>Регулярное повышение квалификации в области когнитивно-поведенческой терапии</li>
+            <div className="prose prose-lg max-w-4xl text-gray-600 text-lg mb-6 text-justify">
+              <p>Я учился у признанных мастеров:</p>
+              <ul>
+                <li>
+                  <strong>Стивена Хейса</strong> &mdash; создателя терапии
+                  принятия и ответственности (ACT), одного из создателей
+                  реляционной теории фреймов.
+                </li>
+                <li>
+                  <strong>Альфрида Ленгле</strong> &mdash; основателя
+                  экзистенциального анализа.
+                </li>
+                <li>
+                  <strong>Сергея Горина</strong> &mdash; одного из первых
+                  преподавателей Нейролингвистического программирования и
+                  Эриксоновского гипноза в России.
+                </li>
+                <li>
+                  <strong>Владимира Менделевича</strong> &mdash; спасибо ему,
+                  что взял меня в студенческое научное общество психиатрии.
+                </li>
+
+                <li>
+                  Не могу упомянуть фамилии моих преподавателей из Института
+                  криминалистики и Академии ФСБ, но благодарен им за то, что они
+                  вбили в наши головы практические знания. Жёстко, но
+                  уважительно.
+                </li>
               </ul>
-              
-              <h2 className="text-2xl font-bold mt-8 mb-4">Подход к лечению</h2>
-              
               <p>
-                В своей работе Айрат Ахмадуллович использует комплексный подход, сочетающий методы когнитивно-поведенческой терапии с элементами других эффективных терапевтических направлений. Он помогает клиентам:
+                Я получил диплом врача в Военно-медицинском институте ФПС РФ.
+                Четыре года послужил войсковым врачом. Если Вы читали
+                &laquo;Записки молодого врача&raquo; Булгакова, то можете
+                представить, что это такое.
               </p>
-              
-              <ul className="list-disc pl-6 mb-6">
-                <li>Выявить и изменить негативные мыслительные паттерны, вызывающие тревогу</li>
-                <li>Развить практические навыки общения в различных социальных ситуациях</li>
-                <li>Преодолеть страх оценки и критики со стороны окружающих</li>
-                <li>Повысить уверенность в себе и своих коммуникативных способностях</li>
-                <li>Научиться эффективно взаимодействовать в профессиональной среде</li>
-              </ul>
-              
-              <h2 className="text-2xl font-bold mt-8 mb-4">Проект EightFaces</h2>
-              
               <p>
-                Проект EightFaces: Soft Skills Engine — это результат многолетнего опыта работы Айрата Ахмадулловича с клиентами, испытывающими трудности в социальном взаимодействии. В рамках проекта собраны и систематизированы наиболее эффективные методики и упражнения, помогающие преодолеть социальную тревогу и развить навыки уверенного общения.
+                В 2001 году перешёл в госпиталь психиатром-психотерапевтом и
+                занялся любимым делом: помогал хорошим парням, которые
+                пострадали от плохих парней.
               </p>
-              
               <p>
-                Особенность проекта заключается в его практической направленности и адаптации к потребностям технических специалистов, которые часто сталкиваются с уникальными коммуникативными вызовами в своей профессиональной деятельности.
+                В 2016 году я снял погоны и с тех пор лечу людей в частной
+                клинике.
               </p>
+              <p>
+                Много лет обучал молодых сотрудников и начинающих руководителей
+                демонстрировать уверенное поведение, подмечать нюансы поведения
+                других людей, с помощью этого выстраивать продуктивные
+                отношения.
+              </p>
+              <p>
+                Однажды меня пригласили помочь с большими медицинскими данными,
+                и так провёл пятнадцать лет в компании с айтишниками. Последние
+                годы мы пытаемся обучить искусственный интеллект тому, что сами
+                умеем.
+              </p>
+
+              <p className="text-gray-600 text-lg mb-6 text-justify border-b"></p>
+              <p>
+                Прочитать подробную информацию и записаться на приём Вы можете
+                на сайте ПроДокторов.
+              </p>
+              <div className="flex items-center gap-4 justify-center">
+                <a
+                  href="https://prodoctorov.ru/spb/vrach/531477-zaripov/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-80 transition-opacity"
+                >
+                  <Image
+                    src="/assets/doc_logo.png"
+                    alt="Отзывы на ПроДокторов"
+                    width={150}
+                    height={50}
+                    style={{ height: "auto" }}
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </main>
-
     </div>
   );
 }

@@ -61,7 +61,7 @@ export default function Article1() {
                 Можно ли отличить застенчивость от расстройства личности,
                 социальной тревоги или расстройства аутистического спектра
               </h1>
-              <p className="text-gray-600 text-lg mb-6 pb-6 text-justify border-b">
+              <p className="text-gray-600 mb-6 text-justify ml-16">
                 В теории это разные состояния, но на практике это не так
                 однозначно и просто. Когда проблемы в социальных ситуациях
                 возникают у интеллектуальных и образованных взрослых людей,
@@ -105,7 +105,7 @@ export default function Article1() {
                 </a>
                 , но есть три диагноза:
               </p>
-              <p className="text-gray-600 text-lg mb-6 text-justify">
+              <p className="text-gray-600 mb-6 text-justify ml-16">
                 <strong>Социальное тревожное расстройство</strong> &ndash;{" "}
                 <em>
                   это выраженное и чрезмерное переживание страха и тревоги,
@@ -120,7 +120,7 @@ export default function Article1() {
                 </a>
                 .
               </p>
-              <p className="text-gray-600 text-lg mb-6 text-justify">
+              <p className="text-gray-600 mb-6 text-justify ml-16">
                 <strong>Расстройство аутистического спектра</strong> &ndash;{" "}
                 <em>
                   это стойкое снижение способности инициировать и поддерживать
@@ -136,7 +136,7 @@ export default function Article1() {
                 </a>
               </p>
 
-              <p className="text-gray-600 text-lg mb-6 text-justify">
+              <p className="text-gray-600 mb-6 text-justify ml-16">
                 <strong>Шизоидное расстройство личности </strong> &ndash;{" "}
                 <em>
                   характеризуется слабостью привязанностей, социальных и других
@@ -285,7 +285,7 @@ export default function Article1() {
                 сенсорной информации.
               </p>
 
-              <p className="text-gray-600 text-lg mb-6 text-justify">
+              <p className="text-gray-600 mb-6 text-justify ml-16">
                 Во время социальной тревоги повышается активность миндалевидного
                 тела &ndash; зоны, которая отвечает за формирование эмоций, в
                 частности страха. В то же время снижается активность в
@@ -308,7 +308,7 @@ export default function Article1() {
                 </a>
                 .
               </p>
-              <p className="text-gray-600 text-lg mb-6 text-justify">
+              <p className="text-gray-600 mb-6 text-justify ml-16">
                 Люди с расстройством аутистического спектра неправильно
                 реагируют на лица, которые демонстрируют эмоции. У обычных людей
                 активируется миндалевидное тело и височная доля, а у людей с РАС
@@ -425,7 +425,7 @@ export default function Article1() {
               <p className="text-gray-600 text-lg mb-6 text-justify">
                 <strong>Читаем клинические рекомендации</strong>
               </p>
-              <p className="text-gray-600 text-lg mb-6 text-justify">
+              <p className="text-gray-600 mb-6 text-justify ml-16">
                 Социальное тревожное расстройство лечат с помощью
                 когнитивно-поведенческой терапии (КПТ). Когнитивно-поведенческие
                 терапевты применяют экспозицию &ndash; погружение в тревожную
@@ -445,7 +445,7 @@ export default function Article1() {
                 </a>
                 .
               </p>
-              <p className="text-gray-600 text-lg mb-6 text-justify">
+              <p className="text-gray-600 mb-6 text-justify ml-16">
                 С пациентами с расстройствами аутистического спектра работают
                 разные специалисты. Они применяют ситуационно-ориентированные
                 техники. То есть, под каждый конкретный случай подбираются
@@ -537,80 +537,146 @@ export default function Article1() {
                   <strong>Ссылки на использованные источники:</strong>
                 </h3>
                 <li id="ref1">
-                  <a href="https://www.litres.ru/book/filip-zimbardo/zastenchivost-kak-ee-poborot-i-priobresti-uverennost-v-sebe-69832063/">
+                  <a
+                    href="https://www.litres.ru/book/filip-zimbardo/zastenchivost-kak-ee-poborot-i-priobresti-uverennost-v-sebe-69832063/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://www.litres.ru/book/filip-zimbardo/zastenchivost-kak-ee-poborot-i-priobresti-uverennost-v-sebe-69832063/
                   </a>
                 </li>
                 <li id="ref2">
-                  <a href="https://mkb-10.com">https://mkb-10.com</a>
+                  <a
+                    href="https://mkb-10.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://mkb-10.com
+                  </a>
                 </li>
                 <li id="ref3">
-                  <a href="https://icd.who.int/browse/2025-01/mms/ru">
+                  <a
+                    href="https://icd.who.int/browse/2025-01/mms/ru"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://icd.who.int/browse/2025-01/mms/ru
                   </a>
                 </li>
                 <li id="ref4">
-                  <a href="https://pubmed.ncbi.nlm.nih.gov/21215728/">
+                  <a
+                    href="https://pubmed.ncbi.nlm.nih.gov/21215728/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://pubmed.ncbi.nlm.nih.gov/21215728/
                   </a>
                 </li>
                 <li id="ref5">
-                  <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5063696/">
+                  <a
+                    href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5063696/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://pmc.ncbi.nlm.nih.gov/articles/PMC5063696/
                   </a>
                 </li>
                 <li id="ref6">
-                  <a href="https://pubmed.ncbi.nlm.nih.gov/37725323/">
+                  <a
+                    href="https://pubmed.ncbi.nlm.nih.gov/37725323/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://pubmed.ncbi.nlm.nih.gov/37725323/
                   </a>
                 </li>
                 <li id="ref7">
-                  <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2834792/">
+                  <a
+                    href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2834792/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://pmc.ncbi.nlm.nih.gov/articles/PMC2834792/
                   </a>
                 </li>
                 <li id="ref8">
-                  <a href="https://www.sciencedirect.com/science/article/pii/S0732118X22000629">
+                  <a
+                    href="https://www.sciencedirect.com/science/article/pii/S0732118X22000629"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://www.sciencedirect.com/science/article/pii/S0732118X22000629
                   </a>
                 </li>
                 <li id="ref9">
-                  <a href="https://pubmed.ncbi.nlm.nih.gov/38002519/">
+                  <a
+                    href="https://pubmed.ncbi.nlm.nih.gov/38002519/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://pubmed.ncbi.nlm.nih.gov/38002519/
                   </a>
                 </li>
                 <li id="ref10">
-                  <a href="https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2023.1320558/full">
+                  <a
+                    href="https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2023.1320558/full"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2023.1320558/full
                   </a>
                 </li>
                 <li id="ref11">
-                  <a href="https://pubmed.ncbi.nlm.nih.gov/34420058/">
+                  <a
+                    href="https://pubmed.ncbi.nlm.nih.gov/34420058/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://pubmed.ncbi.nlm.nih.gov/34420058/
                   </a>
                 </li>
                 <li id="ref12">
-                  <a href="https://psychiatr.ru/download/4239?view=1&amp;name=%D0%9A%D0%A0%D0%97_%D0%A2%D1%80%D0%B5%D0%B2%D0%BE%D0%B6%D0%BD%D0%BE-%D1%84%D0%BF%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5+%D1%80%D0%B0%D1%81%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%B0.pdf">
+                  <a
+                    href="https://psychiatr.ru/download/4239?view=1&amp;name=%D0%9A%D0%A0%D0%97_%D0%A2%D1%80%D0%B5%D0%B2%D0%BE%D0%B6%D0%BD%D0%BE-%D1%84%D0%BF%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5+%D1%80%D0%B0%D1%81%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%B0.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://psychiatr.ru/download/4239?view=1&amp;name=КРЗ_Тревожно-фобические+расстройства.pdf
                   </a>
                 </li>
                 <li id="ref13">
-                  <a href="https://www.nimh.nih.gov/health/publications/social-anxiety-disorder-more-than-just-shyness">
+                  <a
+                    href="https://www.nimh.nih.gov/health/publications/social-anxiety-disorder-more-than-just-shyness"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://www.nimh.nih.gov/health/publications/social-anxiety-disorder-more-than-just-shyness
                   </a>
                 </li>
                 <li id="ref14">
-                  <a href="https://pubmed.ncbi.nlm.nih.gov/33895444/">
+                  <a
+                    href="https://pubmed.ncbi.nlm.nih.gov/33895444/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://pubmed.ncbi.nlm.nih.gov/33895444/
                   </a>
                 </li>
                 <li id="ref15">
-                  <a href="https://www.pediatr-russia.ru/information/klin-rek/proekty-klinicheskikh-rekomendatsiy/%D0%9A%D0%A0%20%D0%A0%D0%90%D0%A1_2022_%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%BC%D0%BE%D1%82%D1%80.pdf?ysclid=m0gnb0tj41420780910">
+                  <a
+                    href="https://www.pediatr-russia.ru/information/klin-rek/proekty-klinicheskikh-rekomendatsiy/%D0%9A%D0%A0%20%D0%A0%D0%90%D0%A1_2022_%D0%BF%D0%B5%D1%80%D0%B5%D1%81%D0%BC%D0%BE%D1%82%D1%80.pdf?ysclid=m0gnb0tj41420780910"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://www.pediatr-russia.ru/information/klin-rek/proekty-klinicheskikh-rekomendatsiy/КР%20РАС_2022_пересмотр.pdf?ysclid=m0gnb0tj41420780910
                   </a>
                 </li>
                 <li id="ref16">
-                  <a href="https://www.nimh.nih.gov/health/publications/autism-spectrum-disorder">
+                  <a
+                    href="https://www.nimh.nih.gov/health/publications/autism-spectrum-disorder"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     https://www.nimh.nih.gov/health/publications/autism-spectrum-disorder
                   </a>
                 </li>

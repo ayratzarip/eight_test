@@ -219,7 +219,11 @@ export default function Article3() {
                 неровной ворсистости мяча, небольшой ветер от моего дыхания, на
                 отскок повлияют неровности стола. Двух одинаковых{" "}
                 <em>бросков</em>{" "}
-                <a href="https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D0%B8%D1%8F_%D1%85%D0%B0%D0%BE%D1%81%D0%B0">
+                <a
+                  href="https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D0%BE%D1%80%D0%B8%D1%8F_%D1%85%D0%B0%D0%BE%D1%81%D0%B0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   не бывает
                 </a>
                 . Мяч останется мячом, пока его не сгрызёт моя собака, но{" "}

@@ -42,9 +42,15 @@
 }
 
 .prose a {
-  color: #2563eb;
-  text-decoration: underline;
+  color: #2563eb; /* соответствует Tailwind классу text-gray-500 */
+  text-decoration: none;
   font-weight: 500;
+  transition: color 0.2s;
+}
+
+.prose a:hover {
+  color: #1f2937; 
+  text-decoration: underline;/* соответствует Tailwind классу text-gray-800 */
 }
 
 .prose strong {
