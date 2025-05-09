@@ -31,6 +31,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "EightFaces: Soft Skills Engine",
+            "description": "Платформа для развития социальных навыков",
+            "url": "https://eightfaces.ru"
+          }
+        `}</script>
+      </head>
       <body className={`${montserrat.variable} ${openSans.variable} font-sans`} suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>

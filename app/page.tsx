@@ -31,8 +31,28 @@ export default function Home() {
     setIsMenuOpen(false);
   };
 
+  // Add Schema.org microdata for the HomePage
+  const homepageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "EightFaces: Soft Skills Engine - Главная страница",
+    "description": "Платформа для развития социальных навыков",
+    "mainEntity": {
+      "@type": "Course",
+      "name": "EightFaces: Soft Skills Engine",
+      "description": "Онлайн-тренажер для улучшения социальных навыков",
+      "provider": {
+        "@type": "Person",
+        "name": "А. Зарипов"
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
+      <script type="application/ld+json">
+        {JSON.stringify(homepageSchema)}
+      </script>
       {/* Header */}
       <header className="fixed w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
         <div className="container mx-auto px-4">

@@ -192,8 +192,30 @@ export default function Lessons() {
     });
   };
 
+  // Define the structured data for courses
+  const courseSchema = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "EightFaces: Soft Skills Engine - Уроки",
+    "description": "Курс для развития социальных навыков",
+    "provider": {
+      "@type": "Organization",
+      "name": "EightFaces: Soft Skills Engine",
+      "sameAs": "https://eightfaces.ru"
+    },
+    "hasCourseInstance": modules.map(module => ({
+      "@type": "CourseInstance",
+      "name": module.title,
+      "description": module.description,
+      "courseMode": "online"
+    }))
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
+      <script type="application/ld+json">
+        {JSON.stringify(courseSchema)}
+      </script>
       <main className="flex-grow pt-16">
         <div className="container mx-auto px-4 py-4">
           <div className="bg-white rounded-lg shadow-2xl overflow-hidden">

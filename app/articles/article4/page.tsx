@@ -9,8 +9,33 @@ import { TriangleAlert } from "lucide-react";
 export default function Article4() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Add Schema.org microdata for Article
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Что сделать, чтобы добиться успеха",
+    "image": "https://eightfaces.com/assets/guilford.png",
+    "datePublished": "2025-04-01",
+    "author": {
+      "@type": "Person",
+      "name": "А. Зарипов"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EightFaces: Soft Skills Engine",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://eightfaces.com/assets/diamond_logo_green.png"
+      }
+    },
+    "description": "Когда я перешёл в психологическую лабораторию одной из уважаемых спецслужб, я увидел многолетние архивы. В этой статье я написал, что я увидел, и что по этому поводу думают умные учёные."
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
+      <script type="application/ld+json">
+        {JSON.stringify(articleSchema)}
+      </script>
       {/* Header */}
       <header className="fixed w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
         <div className="container mx-auto px-4">

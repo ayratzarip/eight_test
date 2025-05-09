@@ -10,8 +10,33 @@ export default function Article3() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
+  // Add Schema.org microdata for Article
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Уверенности и харизмы не существует",
+    "image": "https://eightfaces.ru/assets/rope.png",
+    "datePublished": "2025-04-01",
+    "author": {
+      "@type": "Person",
+      "name": "А. Зарипов"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "EightFaces: Soft Skills Engine",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://eightfaces.ru/assets/diamond_logo_green.png"
+      }
+    },
+    "description": "Это самая сложная тема. Обязательно прочитайте, если участвуете в проекте EightFaces. Если нет, то не тратьте время. Возможно, Вы поймёте не с первого раза, лично я провёл много месяцев в размышлениях, пока до меня дошло."
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
+      <script type="application/ld+json">
+        {JSON.stringify(articleSchema)}
+      </script>
       {/* Header */}
       <header className="fixed w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
         <div className="container mx-auto px-4">

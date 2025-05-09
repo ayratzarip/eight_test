@@ -8,8 +8,30 @@ import { ArrowLeft } from "lucide-react";
 export default function Author() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Add Schema.org microdata for Person
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Айрат Зарипов",
+    "image": "https://eightfaces.ru/assets/author.png",
+    "jobTitle": "Психотерапевт",
+    "description": "Я помогаю справляться с внутренними барьерами: преодолевать тревогу, страхи и панику.",
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Военно-медицинский институт ФПС РФ"
+      }
+    ],
+    "sameAs": [
+      "https://prodoctorov.ru/spb/vrach/531477-zaripov/"
+    ]
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
+      <script type="application/ld+json">
+        {JSON.stringify(personSchema)}
+      </script>
       {/* Header */}
       <header className="fixed w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
         <div className="container mx-auto px-4">
