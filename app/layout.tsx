@@ -1,11 +1,11 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Montserrat, Open_Sans } from 'next/font/google';
+import { Inter, Open_Sans } from 'next/font/google';
 import Providers from './providers';
 
-const montserrat = Montserrat({ 
+const inter = Inter({ 
   subsets: ['latin', 'cyrillic'],
-  variable: '--font-montserrat',
+  variable: '--font-inter',
   display: 'swap',
 });
 
@@ -42,7 +42,7 @@ export default function RootLayout({
           }
         `}</script>
       </head>
-      <body className={`${montserrat.variable} ${openSans.variable} font-sans`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${openSans.variable} font-sans`} suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>

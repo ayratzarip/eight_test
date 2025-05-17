@@ -56,13 +56,13 @@ export default function Lessons() {
     lesson: Lesson;
   } | null => {
     // First, look for the first incomplete but accessible lesson
-    for (const module of moduleData) {
-      if (module.isAccessible) {
-        for (const lesson of module.lessons) {
+    for (const mod of moduleData) {
+      if (mod.isAccessible) {
+        for (const lesson of mod.lessons) {
           if (lesson.isAccessible && !lesson.isCompleted) {
             return {
-              moduleTitle: module.title,
-              moduleId: module.id,
+              moduleTitle: mod.title,
+              moduleId: mod.id,
               lesson: lesson
             };
           }
@@ -71,13 +71,13 @@ export default function Lessons() {
     }
     
     // If no incomplete lessons found, fallback to the first lesson that is accessible
-    for (const module of moduleData) {
-      if (module.isAccessible && module.lessons && module.lessons.length > 0) {
-        const accessibleLesson = module.lessons.find(lesson => lesson.isAccessible);
+    for (const mod of moduleData) {
+      if (mod.isAccessible && mod.lessons && mod.lessons.length > 0) {
+        const accessibleLesson = mod.lessons.find(lesson => lesson.isAccessible);
         if (accessibleLesson) {
           return {
-            moduleTitle: module.title,
-            moduleId: module.id,
+            moduleTitle: mod.title,
+            moduleId: mod.id,
             lesson: accessibleLesson
           };
         }
@@ -85,7 +85,7 @@ export default function Lessons() {
     }
     
     // Fallback to the first lesson of the first module if no accessible lessons found
-    const firstModuleWithLessons = moduleData.find(module => module.lessons && module.lessons.length > 0);
+    const firstModuleWithLessons = moduleData.find(mod => mod.lessons && mod.lessons.length > 0);
     if (firstModuleWithLessons && firstModuleWithLessons.lessons) {
       return {
         moduleTitle: firstModuleWithLessons.title,
@@ -217,7 +217,10 @@ export default function Lessons() {
         {JSON.stringify(courseSchema)}
       </script>
       <main className="flex-grow pt-16">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-8 prose">
+            <h1 className="text-3xl font-bold mb-4">Учебная панель</h1>
+          </div>
           <div className="bg-white rounded-lg shadow-2xl overflow-hidden">
             <div className="flex flex-col lg:flex-row">
               {/* Left Sidebar - Module and lesson list */}
@@ -232,14 +235,16 @@ export default function Lessons() {
                       <div key={module.id} className="border-b">
                         <div 
                           className={`cursor-pointer p-4 flex justify-between items-center 
-                            ${module.isAccessible ? 'text-black font-medium' : 'text-gray-500 font-normal'}
+                            ${module.isAccessible ? ' text-indigo-950 font-semibold' : 'text-gray-500 font-normal'}
                             ${expandedModules.includes(module.id) ? 'bg-green-50 border-l-4 border-green-500' : 'hover:bg-gray-50'}
                             ${selectedLesson?.moduleId === module.id ? 'font-semibold' : ''}
                             transition-all duration-150
                           `}
                           onClick={() => toggleModule(module.id)}
                         >
-                          <h3 className={`${module.isAccessible ? 'font-medium' : 'font-normal'}`}>{module.title}</h3>
+                          <h3 className={`${module.isAccessible ? 'font-semibold' : 'font-normal'} font-inter`}>
+                          Модуль {module.id}:&nbsp;{module.title}
+                          </h3>
                           {expandedModules.includes(module.id) ? (
                             <ChevronUp className="h-4 w-4 text-gray-500" />
                           ) : (
@@ -301,7 +306,10 @@ export default function Lessons() {
                 ) : selectedLesson ? (
                   <div>
                     {/* Lesson title */}
-                    <h1 className="text-3xl font-bold mb-4">{selectedLesson.title}</h1>
+                    <h2 className="text-3xl text-indigo-950 font-bold mb-2 font-inter">{selectedLesson.title}</h2>
+                    <p className="text-sm text-gray-500 mb-4">
+                      Модуль {selectedLesson.module.id}: {selectedLesson.module.title}
+                    </p>
                     
                     {/* Video section */}
                     <div className="mb-6">
@@ -323,18 +331,18 @@ export default function Lessons() {
                     
                     {/* Tabs for different content types */}
                     <Tabs defaultValue="content" value={activeTab} onValueChange={setActiveTab} className="w-full">
-                      <TabsList className="grid grid-cols-3 mb-6">
+                      <TabsList className="grid text-gray-600 grid-cols-3 mb-6">
                         <TabsTrigger value="content">Краткий конспект</TabsTrigger>
                         <TabsTrigger value="transcript">Транскрипт видео</TabsTrigger>
                         <TabsTrigger value="quiz" onClick={() => setShowQuiz(true)}>Тест</TabsTrigger>
                       </TabsList>
                       
                       {/* Content tab */}
-                      <TabsContent value="content" className="border rounded-md p-4">
+                      <TabsContent value="content" className="border rounded-md p-4 text-gray-600">
                         {selectedLesson.content ? (
                           <>
                             <div 
-                              className="prose max-w-full w-full"
+                              className="max-w-full w-full"
                               dangerouslySetInnerHTML={{ __html: selectedLesson.content }}
                             />
                             <div className="mt-8 p-4 bg-amber-50 border border-amber-300 rounded-md">
@@ -354,7 +362,7 @@ export default function Lessons() {
                       </TabsContent>
                       
                       {/* Transcript tab */}
-                      <TabsContent value="transcript" className="border rounded-md p-4">
+                      <TabsContent value="transcript" className="border rounded-md p-4 text-gray-600">
                         {selectedLesson.transcript ? (
                           <div className="whitespace-pre-line">
                             {selectedLesson.transcript}
@@ -365,7 +373,7 @@ export default function Lessons() {
                       </TabsContent>
                       
                       {/* Quiz tab */}
-                      <TabsContent value="quiz" className="border rounded-md p-4">
+                      <TabsContent value="quiz" className="border rounded-md p-4 text-gray-600">
                         {showQuiz ? (
                           <QuizWrapper lessonId={selectedLesson.id} />
                         ) : (

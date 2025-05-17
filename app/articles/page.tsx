@@ -54,8 +54,8 @@ export default function Articles() {
                     className="w-full h-64 object-cover rounded-lg"
                   />
                 </div>
-                <div className="p-6 md:w-2/3">
-                  <h3 className="text-2xl font-bold mb-3">
+                <div className="p-6 prose md:w-2/3">
+                  <h3 className="text-3xl font-bold mb-3">
                     Что сделать, чтобы добиться успеха
                   </h3>
                   <p className="text-gray-600 mb-4">
@@ -84,8 +84,8 @@ export default function Articles() {
                     className="w-full h-64 object-cover rounded-lg"
                   />
                 </div>
-                <div className="p-6 md:w-2/3">
-                  <h3 className="text-2xl font-bold mb-3">
+                <div className="p-6 prose md:w-2/3">
+                  <h3 className="text-3xl font-bold mb-3">
                     Уверенности и харизмы не существует
                   </h3>
                   <p className="text-gray-600 mb-4">
@@ -116,8 +116,8 @@ export default function Articles() {
                     priority
                   />
                 </div>
-                <div className="p-6 md:w-2/3">
-                  <h3 className="text-2xl font-bold mb-3">
+                <div className="p-6 prose md:w-2/3">
+                  <h3 className="text-3xl font-bold mb-3">
                     Не ищите причину неуверенности и застенчивости
                   </h3>
                   <p className="text-gray-600 mb-4">
@@ -147,8 +147,8 @@ export default function Articles() {
                     className="w-full h-64 object-cover rounded-lg"
                   />
                 </div>
-                <div className="p-6 md:w-2/3">
-                  <h3 className="text-2xl font-bold mb-3">
+                <div className="p-6 prose md:w-2/3">
+                  <h3 className="text-3xl font-bold mb-3">
                     Можно ли отличить застенчивость от расстройства личности,
                     социальной тревоги или расстройства аутистического спектра
                   </h3>

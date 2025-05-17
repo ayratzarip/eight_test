@@ -643,8 +643,8 @@ export default function GoalsPage() {
       
       <main className="flex-grow pt-16">
         <div className="container mx-auto px-4 py-4">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-4">Мои цели</h1>
+          <div className="mb-8 prose">
+            <h1 className="text-3xl text-gray-600 font-bold mb-4">Мои цели</h1>
             
             <div className="flex flex-wrap gap-2 md:flex-nowrap">
               <Button

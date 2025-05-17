@@ -694,7 +694,7 @@ export default function LogbookPage() {
       
       <main className="flex-grow pt-16">
         <div className="container mx-auto px-4 py-4">
-          <div className="mb-8">
+          <div className="mb-8 prose">
             <h1 className="text-3xl font-bold mb-4">Дневник наблюдений</h1>
             
             <div className="flex flex-wrap gap-2 md:flex-nowrap">
