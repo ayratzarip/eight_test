@@ -243,7 +243,7 @@ export default function Lessons() {
                           onClick={() => toggleModule(module.id)}
                         >
                           <h3 className={`${module.isAccessible ? 'font-semibold' : 'font-normal'} font-inter`}>
-                          Модуль {module.id}:&nbsp;{module.title}
+                          Модуль {Number(module.id) - 1}:&nbsp;{module.title}
                           </h3>
                           {expandedModules.includes(module.id) ? (
                             <ChevronUp className="h-4 w-4 text-gray-500" />
@@ -308,7 +308,7 @@ export default function Lessons() {
                     {/* Lesson title */}
                     <h2 className="text-3xl text-indigo-950 font-bold mb-2 font-inter">{selectedLesson.title}</h2>
                     <p className="text-sm text-gray-500 mb-4">
-                      Модуль {selectedLesson.module.id}: {selectedLesson.module.title}
+                      Модуль {Number(selectedLesson.module.id) - 1}: {selectedLesson.module.title}
                     </p>
                     
                     {/* Video section */}

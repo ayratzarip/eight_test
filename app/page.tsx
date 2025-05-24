@@ -11,6 +11,7 @@ import {
   Send,
   ChevronRight,
   CheckCircle2,
+  CircleX,
   Shield,
   Menu,
   X,
@@ -35,17 +36,18 @@ export default function Home() {
   const homepageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "EightFaces: Soft Skills Engine - Главная страница",
-    "description": "Платформа для развития социальных навыков",
-    "mainEntity": {
+    name: "EightFaces: Soft Skills Engine - Главная страница",
+    description: "Платформа для развития социальных навыков",
+    mainEntity: {
       "@type": "Course",
-      "name": "EightFaces: Soft Skills Engine",
-      "description": "Онлайн-тренажер для улучшения социальных навыков",
-      "provider": {
+      name: "EightFaces: Soft Skills Engine",
+      description:
+        "Онлайн-программа по преодолению социальных страхов и развитию уверенности в общении",
+      provider: {
         "@type": "Person",
-        "name": "А. Зарипов"
-      }
-    }
+        name: "А. Зарипов",
+      },
+    },
   };
 
   return (
@@ -175,23 +177,90 @@ export default function Home() {
                 EightFaces:
               </h1>
               <p className="text-3xl text-gray-200 mb-8">
-                онлайн-тренажер для улучшения социальных навыков
+                Пошаговая онлайн-программа для тех, кто хочет развить
+                уверенность в общении и преодолеть застенчивость
+              </p>
+              <p className="text-gray-200 mb-4">
+                Социальные страхи мешают многим умным и способным людям
+                достигать целей.
+                <br />
+                Этот проект создан, чтобы помочь выстроить новые навыки общения
+                и добиться желаемого. Вы сможете сделать первые шаги в
+                безопасной обстановке.
               </p>
             </div>
           </div>
         </section>
 
         {/* Pre-Video Introduction */}
-        <section className="bg-white py-32">
+        <section className="bg-white py-16">
           <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-6">
-                Превратить застенчивость в уверенность
-              </h2>
-              <p className="text-gray-600 mb-8">
-                Чтобы победить застенчивость нужно пойти к психотерапевту, чтобы
-                пойти к психотерапевту нужно победить застенчивость.
-              </p>
+            <div className="max-w-3xl mx-auto">
+              <div className="max-w-3xl mx-auto">
+                <h2 className="text-3xl font-bold text-center mb-12">
+                  Что вы здесь найдёте
+                </h2>
+                <div className="flex items-start gap-4">
+                  <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0" />
+                  <div>
+                    <h3 className="mb-2">
+                      Структурированную программу, разделённую на восемь
+                      ключевых направлений (внимание, мышление, эмоции, речь,
+                      поведение и др.)
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0" />
+                  <div>
+                    <h3 className="mb-2">
+                      Пошаговые инструкции и практики с видео, транскриптами и
+                      мини-тестами
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0" />
+                  <div>
+                    <h3 className="mb-2">
+                      Возможность работать в комфортном темпе и в уединении
+                      &mdash; без групповых заданий и посторонних глаз
+                    </h3>
+                  </div>
+                </div>
+              </div>
+
+              <div className="max-w-3xl mx-auto">
+                <h2 className="text-3xl font-bold text-center mb-12">
+                  Чего здесь не будет
+                </h2>
+                <div className="flex items-start gap-4">
+                  <CircleX className="w-6 h-6 text-red-500 flex-shrink-0" />
+                  <div>
+                    <h3 className="mb-2">
+                      Принуждения к контактам или заданий вроде &laquo;заговори
+                      с незнакомцем в метро&raquo;
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CircleX className="w-6 h-6 text-red-500 flex-shrink-0" />
+                  <div>
+                    <h3 className="mb-2">
+                      Поверхностных советов в духе &laquo;поверь в себя&raquo;
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CircleX className="w-6 h-6 text-red-500 flex-shrink-0" />
+                  <div>
+                    <h3 className="mb-2">
+                      Навязчивой мотивации и давления &mdash; вы сами решаете,
+                      когда двигаться вперёд
+                    </h3>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -232,12 +301,11 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">
-                    Understanding Social Anxiety
+                    Что мешает вам действовать
                   </h3>
                   <p className="text-gray-600">
-                    Learn about the science behind social anxiety and how it
-                    affects tech professionals. Our expert psychotherapists
-                    break down the cognitive patterns that hold you back.
+                    Разбираемся, как социальные страхи мешают реализовывать
+                    желания и почему «хорошие парни» часто застревают на старте.
                   </p>
                 </div>
               </div>
@@ -264,12 +332,12 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">
-                    Success Stories
+                    Подходит ли вам этот проект
                   </h3>
                   <p className="text-gray-600">
-                    Hear from tech professionals who transformed their social
-                    confidence through our program. Real stories, real results,
-                    and actionable insights you can apply today.
+                    Что нужно, чтобы работать над собой: мотивация, ресурсы,
+                    минимальное понимание своей проблемы — и немного времени
+                    каждый день.
                   </p>
                 </div>
               </div>
@@ -281,44 +349,36 @@ export default function Home() {
         <section className="bg-white py-16">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-6">Что Вы здесь найдёте?</h2>
+              <h2 className="text-3xl font-bold mb-6">Что включает проект</h2>
               <p
                 className="text-gray-600 mb-12"
                 style={{ textAlign: "center" }}
               >
-                Здесь последовательно изложены методы, которые помогли сотням
-                моих клиентов. В проекте три типа видеоуроков: разборы теории,
-                демонстрации упражнений и интерактивные тренажёры. Эти уроки
-                дублируют и дополняют занятия, которые мы проводим на сеансах
-                психотерапии.
+                Основа курса — современная когнитивно-поведенческая терапия и
+                реальные клинические и коучинговые кейсы, адаптированные для
+                самостоятельной работы.
                 <br />
-                Этот проект не подходит тем, кто верит в чудеса. Вы не найдёте
-                на этом сайте волшебные тайные техники.
-                <br />
-                Два секрета: я сгруппировал материал так, чтобы Вы смогли
-                разобраться в многообразии подходов; мы исправляем типичные
-                ошибки.
+                Программа разделена на восемь тематических модулей и
+                предполагает работу в трёх форматах:
                 <br />
               </p>
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="p-6 bg-gray-50 rounded-lg">
-                  <h3 className="font-semibold mb-2">
-                    Workplace Communication
-                  </h3>
+                  <h3 className="font-semibold mb-2">Теоретические уроки</h3>
                   <p className="text-gray-600 text-sm">
-                    Master team interactions and professional relationships
+                    Объясняют суть возникающих трудностей
                   </p>
                 </div>
                 <div className="p-6 bg-gray-50 rounded-lg">
-                  <h3 className="font-semibold mb-2">Networking Skills</h3>
+                  <h3 className="font-semibold mb-2">Упражнения</h3>
                   <p className="text-gray-600 text-sm">
-                    Build genuine connections at tech events and conferences
+                    Помогают подготовиться к действиям
                   </p>
                 </div>
                 <div className="p-6 bg-gray-50 rounded-lg">
-                  <h3 className="font-semibold mb-2">Leadership Presence</h3>
+                  <h3 className="font-semibold mb-2">Практические приёмы </h3>
                   <p className="text-gray-600 text-sm">
-                    Develop executive presence and management skills
+                    Отработка навыков для применения в реальных ситуациях
                   </p>
                 </div>
               </div>
@@ -362,12 +422,12 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">
-                    Understanding Social Anxiety
+                    Из чего состоит программа
                   </h3>
                   <p className="text-gray-600">
-                    Learn about the science behind social anxiety and how it
-                    affects tech professionals. Our expert psychotherapists
-                    break down the cognitive patterns that hold you back.
+                    Обзор восьми ключевых направлений работы: внимание, мысли,
+                    эмоции, речь, поведение и другие составляющие уверенного
+                    общения.
                   </p>
                 </div>
               </div>
@@ -394,12 +454,11 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">
-                    Success Stories
+                    Как устроен процесс обучения
                   </h3>
                   <p className="text-gray-600">
-                    Hear from tech professionals who transformed their social
-                    confidence through our program. Real stories, real results,
-                    and actionable insights you can apply today.
+                    Показываем, как проходят уроки: теория, упражнения и
+                    отработка. Что понадобится для работы.
                   </p>
                 </div>
               </div>
@@ -411,44 +470,65 @@ export default function Home() {
         <section id="features" className="py-16">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold text-center mb-12">
-                Why Choose Our Program?
-              </h2>
-              <div className="grid gap-8">
+              <div className="max-w-3xl mx-auto">
+                <h2 className="text-3xl font-bold text-center mb-12">
+                  Кто сможет пройти этот курс
+                </h2>
                 <div className="flex items-start gap-4">
                   <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">
-                      Expert-Led Training
+                    <h3 className="mb-2">
+                      Те, кто уже осознают свою проблему и готовы работать над
+                      ней
                     </h3>
-                    <p className="text-gray-600">
-                      Developed by experienced psychotherapists who understand
-                      the unique challenges faced by tech professionals.
-                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">
-                      Practical Approach
+                    <h3 className="mb-2">
+                      Те, у кого есть базовое школьное образование и опыт
+                      самостоятельного обучения
                     </h3>
-                    <p className="text-gray-600">
-                      Real-world scenarios and exercises designed specifically
-                      for workplace and professional networking situations.
-                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">
-                      Flexible Learning
+                    <h3 className="mb-2">
+                      Те, кто может выделить время и силы: от 30 минут до часа в
+                      день в течение нескольких месяцев
                     </h3>
-                    <p className="text-gray-600">
-                      Self-paced modules that fit into your busy schedule, with
-                      lifetime access to all materials.
-                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="max-w-3xl mx-auto">
+                <h2 className="text-3xl font-bold text-center mb-12">
+                  С чего начать
+                </h2>
+                <div className="flex items-start gap-4">
+                  <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0" />
+                  <div>
+                    <h3 className="mb-2">
+                      Пройдите авторизацию через Google или GitHub
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0" />
+                  <div>
+                    <h3 className="mb-2">
+                      Ознакомьтесь с модулями, выберите удобный темп
+                    </h3>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0" />
+                  <div>
+                    <h3 className="mb-2">
+                      Начните с первого урока &mdash; он доступен сразу
+                    </h3>
                   </div>
                 </div>
               </div>
@@ -476,6 +556,12 @@ export default function Home() {
                 <Send className="w-6 h-6" />
               </a>
             </div>
+          </div>
+          <div className="max-w-5xl mx-auto text-center">
+            <p className="text-gray-600 mt-8">
+              Если почувствуете, что нужна поддержка &mdash; можно будет
+              подключить личную работу с психотерапевтом.
+            </p>
           </div>
         </section>
 
@@ -506,7 +592,7 @@ export default function Home() {
                 <label htmlFor="terms" className="text-sm text-gray-300">
                   Я соглашаюсь с{" "}
                   <Link href="/terms" className="underline">
-                    пользовательским соглашеним
+                    пользовательским соглашением
                   </Link>{" "}
                   и{" "}
                   <Link href="/privacy" className="underline">
