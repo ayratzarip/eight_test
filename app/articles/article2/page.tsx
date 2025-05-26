@@ -13,22 +13,23 @@ export default function Article2() {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Не ищите причину неуверенности и застенчивости",
-    "image": "https://eightfaces.ru/assets/diagnose.png",
-    "datePublished": "2025-04-01",
-    "author": {
+    headline: "Не ищите причину неуверенности и застенчивости",
+    image: "https://eightfaces.ru/assets/diagnose.png",
+    datePublished: "2025-04-01",
+    author: {
       "@type": "Person",
-      "name": "А. Зарипов"
+      name: "А. Зарипов",
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "EightFaces: Soft Skills Engine",
-      "logo": {
+      name: "EightFaces: Soft Skills Engine",
+      logo: {
         "@type": "ImageObject",
-        "url": "https://eightfaces.ru/assets/diamond_logo_green.png"
-      }
+        url: "https://eightfaces.ru/assets/diamond_logo_green.png",
+      },
     },
-    "description": "Вы пришили к психологу, чтобы устранить застенчивость, побороть неуверенность в себе, или решить другую психологическую проблему. Психолог говорит, что главное найти причину. Уточните у него, что он имеет в виду."
+    description:
+      "Вы пришили к психологу, чтобы устранить застенчивость, побороть неуверенность в себе, или решить другую психологическую проблему. Психолог говорит, что главное найти причину. Уточните у него, что он имеет в виду.",
   };
 
   return (
@@ -370,6 +371,13 @@ export default function Article2() {
               <p className="text-sm text-gray-600 mb-4">
                 Дата публикации: апрель 2025
               </p>
+              <div className="text-center py-8">
+                <Link href="/#start">
+                  <button className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors">
+                    Подключиться к проекту
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

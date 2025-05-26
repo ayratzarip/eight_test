@@ -13,22 +13,24 @@ export default function Article1() {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Можно ли отличить застенчивость от расстройства личности, социальной тревоги или расстройства аутистического спектра",
-    "image": "https://eightfaces.ru/assets/autis.png",
-    "datePublished": "2025-04-01",
-    "author": {
+    headline:
+      "Можно ли отличить застенчивость от расстройства личности, социальной тревоги или расстройства аутистического спектра",
+    image: "https://eightfaces.ru/assets/autis.png",
+    datePublished: "2025-04-01",
+    author: {
       "@type": "Person",
-      "name": "А. Зарипов"
+      name: "А. Зарипов",
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "EightFaces: Soft Skills Engine",
-      "logo": {
+      name: "EightFaces: Soft Skills Engine",
+      logo: {
         "@type": "ImageObject",
-        "url": "https://eightfaces.ru/assets/diamond_logo_green.png"
-      }
+        url: "https://eightfaces.ru/assets/diamond_logo_green.png",
+      },
     },
-    "description": "В теории это разные состояния, но на практике это не так однозначно и просто. Когда проблемы в социальных ситуациях возникают у интеллектуальных и образованных взрослых людей, сложно выделить единственную причину."
+    description:
+      "В теории это разные состояния, но на практике это не так однозначно и просто. Когда проблемы в социальных ситуациях возникают у интеллектуальных и образованных взрослых людей, сложно выделить единственную причину.",
   };
 
   return (
@@ -557,6 +559,13 @@ export default function Article1() {
                 Дата публикации: апрель 2025
               </p>
 
+              <div className="text-center py-8">
+                <Link href="/#start">
+                  <button className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors">
+                    Подключиться к проекту
+                  </button>
+                </Link>
+              </div>
               <ol>
                 <h3 className="font-bold mb-4">
                   <strong>Ссылки на использованные источники:</strong>

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
+import { useEffect } from 'react';
 import {
   Youtube,
   Send,
@@ -558,10 +559,28 @@ export default function Home() {
             </div>
           </div>
           <div className="max-w-5xl mx-auto text-center">
-            <p className="text-gray-600 mt-8">
+            <p className="text-gray-600 text-lg mt-8 mb-6 text-justify border-b"></p>
+            <p className="text-gray-600 mt-8 mb-8">
               Если почувствуете, что нужна поддержка &mdash; можно будет
               подключить личную работу с психотерапевтом.
             </p>
+
+            <div className="flex items-center gap-4 justify-center">
+              <a
+                href="https://prodoctorov.ru/spb/vrach/531477-zaripov/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-80 transition-opacity"
+              >
+                <Image
+                  src="/assets/doc_logo.png"
+                  alt="Отзывы на ПроДокторов"
+                  width={150}
+                  height={50}
+                  style={{ height: "auto" }}
+                />
+              </a>
+            </div>
           </div>
         </section>
 

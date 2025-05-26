@@ -14,22 +14,23 @@ export default function Article3() {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Уверенности и харизмы не существует",
-    "image": "https://eightfaces.ru/assets/rope.png",
-    "datePublished": "2025-04-01",
-    "author": {
+    headline: "Уверенности и харизмы не существует",
+    image: "https://eightfaces.ru/assets/rope.png",
+    datePublished: "2025-04-01",
+    author: {
       "@type": "Person",
-      "name": "А. Зарипов"
+      name: "А. Зарипов",
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "EightFaces: Soft Skills Engine",
-      "logo": {
+      name: "EightFaces: Soft Skills Engine",
+      logo: {
         "@type": "ImageObject",
-        "url": "https://eightfaces.ru/assets/diamond_logo_green.png"
-      }
+        url: "https://eightfaces.ru/assets/diamond_logo_green.png",
+      },
     },
-    "description": "Это самая сложная тема. Обязательно прочитайте, если участвуете в проекте EightFaces. Если нет, то не тратьте время. Возможно, Вы поймёте не с первого раза, лично я провёл много месяцев в размышлениях, пока до меня дошло."
+    description:
+      "Это самая сложная тема. Обязательно прочитайте, если участвуете в проекте EightFaces. Если нет, то не тратьте время. Возможно, Вы поймёте не с первого раза, лично я провёл много месяцев в размышлениях, пока до меня дошло.",
   };
 
   return (
@@ -689,6 +690,13 @@ export default function Article3() {
               <p className="text-sm text-gray-600 mb-4">
                 Дата публикации: апрель 2025
               </p>
+              <div className="text-center py-8">
+                <Link href="/#start">
+                  <button className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors">
+                    Подключиться к проекту
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

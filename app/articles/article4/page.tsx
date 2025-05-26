@@ -13,22 +13,23 @@ export default function Article4() {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Что сделать, чтобы добиться успеха",
-    "image": "https://eightfaces.com/assets/guilford.png",
-    "datePublished": "2025-04-01",
-    "author": {
+    headline: "Что сделать, чтобы добиться успеха",
+    image: "https://eightfaces.com/assets/guilford.png",
+    datePublished: "2025-04-01",
+    author: {
       "@type": "Person",
-      "name": "А. Зарипов"
+      name: "А. Зарипов",
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "EightFaces: Soft Skills Engine",
-      "logo": {
+      name: "EightFaces: Soft Skills Engine",
+      logo: {
         "@type": "ImageObject",
-        "url": "https://eightfaces.com/assets/diamond_logo_green.png"
-      }
+        url: "https://eightfaces.com/assets/diamond_logo_green.png",
+      },
     },
-    "description": "Когда я перешёл в психологическую лабораторию одной из уважаемых спецслужб, я увидел многолетние архивы. В этой статье я написал, что я увидел, и что по этому поводу думают умные учёные."
+    description:
+      "Когда я перешёл в психологическую лабораторию одной из уважаемых спецслужб, я увидел многолетние архивы. В этой статье я написал, что я увидел, и что по этому поводу думают умные учёные.",
   };
 
   return (
@@ -452,6 +453,13 @@ export default function Article4() {
               <p className="text-sm text-gray-600 mb-4">
                 Дата публикации: апрель 2025
               </p>
+              <div className="text-center py-8">
+                <Link href="/#start">
+                  <button className="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors">
+                    Подключиться к проекту
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
